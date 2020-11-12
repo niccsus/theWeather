@@ -1,5 +1,5 @@
 public class New_Class_Test {
-    public static void testing_classes(){
+    public static void main(String[] args) { // fixed - vic
         System.out.println("Testing classes in git!!!");
     }
 }
