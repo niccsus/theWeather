@@ -1,8 +1,17 @@
-public class input {
-    public static void testing_classes(){
+import java.util.Scanner;
+import java.net.URLEncoder;
 
-        System.out.println("Testing classes in git!!!");
+
+public class input {
+
+
+    static String city() {
+        Scanner ask = new Scanner(System.in);
+        System.out.println("Enter your city: ");
+        return ask.nextLine();
     }
 
+    input() {
 
+    }
 }

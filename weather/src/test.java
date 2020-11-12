@@ -1,9 +1,6 @@
 public class test {
     public static void main(String[] args){
-        System.out.println("Helloo, please work ughhhhh");
-        System.out.println("Helloo, please work ughhhhh");
-        input.testing_classes();
+        String city = input.city();
+        System.out.println("The temperature in "+ city +" is: boring");
     }
 }
- //Jaishil
-//Foad
