@@ -1,9 +1,13 @@
 public class test {
     public static void main(String[] args){
         System.out.println("Helloo, please work ughhhhh");
-        System.out.println("Helloo, please work ughhhhh");
-        System.out.println("it's Vic");
+        int x = 5;
+        int y = 10;
+
+        int sum = x + y;
+
+        System.out.println("The sum of 5 plus 10 is = " + sum);
     }
 }
  //Jaishil
- //Danny ex
+ //I am adding two numbers
