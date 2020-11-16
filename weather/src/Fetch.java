@@ -16,6 +16,8 @@ public class Fetch {
         json(query);
 
     }
+    //constructor in case user inputs lat/lon
+    //WORK IN PROGRESS
     public Fetch(String[] lat_lon){
         this.query = "https://api.openweathermap.org/data/2.5/weather?q=lat=" + lat_lon[0] + "&lon=" + lat_lon[1] + "&units=imperial&appid=" + key;
         json(query);
