@@ -14,6 +14,7 @@ public class Weather {
         BufferedReader reader =  
                    new BufferedReader(new InputStreamReader(System.in)); 
         // Reading data using readLine 
+        System.out.println("Enter CIty Name: ");
         String input = reader.readLine(); 
         Fetch weather = new Fetch(input);
         Forecast forecast = new Forecast(weather.json);
