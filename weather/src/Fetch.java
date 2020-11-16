@@ -1,73 +1,36 @@
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.io.IOException;
-import java.net.MalformedURLException;
+import org.json.JSONObject;
 import java.net.URI;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+
 
 public class Fetch {
-    private static HttpURLConnection connection;
-    private final String key = "843b5b1093b07ff0e1d9f681a3a3cb0c";
-    private String query;
+    private final String key = "843b5b1093b07ff0e1d9f681a3a3cb0c";  //API token
+    private String query;   //API URL
+    JSONObject json = new JSONObject();    //the JSON object that contains weather data
 
+    //constructor in case user inputs string
     public Fetch(String city) {
-        this.query = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
-        http(query);
+        this.query = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + key;
+        json(query);
 
     }
+    public Fetch(String[] lat_lon){
+        this.query = "https://api.openweathermap.org/data/2.5/weather?q=lat=" + lat_lon[0] + "&lon=" + lat_lon[1] + "&units=imperial&appid=" + key;
+        json(query);
+    }
 
-    public void http(String query){
+    //creates JSON object based on user input
+    public void json(String query){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(query)).build();
-        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                        .thenApply(HttpResponse::body)
-                        .thenAccept(System.out::println)
-                        .join();
+        this.json = new JSONObject(client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(HttpResponse::body)
+                    .join());              
+
     }
 
-    public void json(String query){
-        BufferedReader reader;
-        String line;
-        StringBuffer responseContent = new StringBuffer();
-
-        //establish connection
-        try{
-            URL url = new URL(query);
-            connection = (HttpURLConnection) url.openConnection();
-
-            connection.setRequestMethod("GET");
-            connection.setConnectTimeout(5000);
-            connection.setReadTimeout(50000);
-
-            int status = connection.getResponseCode();
-            //Test if connection established
-            if(status>299){
-                reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-                while((line = reader.readLine()) != null){
-                    responseContent.append(line);
-                }
-                reader.close();
-            } else{
-                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                while((line = reader.readLine()) != null){
-                    responseContent.append(line);
-                }
-                reader.close();
-            }
-            
-
-        } catch(MalformedURLException e){
-            e.printStackTrace();
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally{
-            connection.disconnect();
-        }
-    }
 
 
 

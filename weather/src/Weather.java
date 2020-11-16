@@ -1,0 +1,36 @@
+import java.io.BufferedReader; 
+import java.io.IOException; 
+import java.io.InputStreamReader; 
+public class Weather {
+    public static void main(String[] args) throws IOException {
+
+        input();
+        
+    }
+
+    public static void input() throws IOException  
+    { 
+        //Enter data using BufferReader 
+        BufferedReader reader =  
+                   new BufferedReader(new InputStreamReader(System.in)); 
+         
+        int temp_max;
+        // Reading data using readLine 
+        String input = reader.readLine(); 
+        Fetch weather = new Fetch(input);
+        temp_max = weather.json.getJSONObject("main").getInt("temp_max");
+        // char charArray[] = input.toCharArray();
+        // if(Character.isDigit(charArray[0])){
+        //     String[] inputs = input.split(",");
+        //     Fetch weather = new Fetch(inputs);
+        //     temp_max = weather.json.getJSONObject("main").getInt("temp_max");
+        // } else{
+        //     Fetch weather = new Fetch(input);
+        //     temp_max = weather.json.getJSONObject("main").getInt("temp_max");
+        // }
+        
+        
+        
+        System.out.println(temp_max);
+    } 
+}
