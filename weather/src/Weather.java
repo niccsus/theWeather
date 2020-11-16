@@ -13,12 +13,12 @@ public class Weather {
         //Enter data using BufferReader 
         BufferedReader reader =  
                    new BufferedReader(new InputStreamReader(System.in)); 
-         
-        int temp_max;
         // Reading data using readLine 
         String input = reader.readLine(); 
         Fetch weather = new Fetch(input);
-        temp_max = weather.json.getJSONObject("main").getInt("temp_max");
+        Forecast forecast = new Forecast(weather.json);
+        System.out.println(forecast.get_temp());
+        //temp_max = weather.json.getJSONObject("main").getInt("temp_max");
         // char charArray[] = input.toCharArray();
         // if(Character.isDigit(charArray[0])){
         //     String[] inputs = input.split(",");
@@ -31,6 +31,5 @@ public class Weather {
         
         
         
-        System.out.println(temp_max);
     } 
 }
