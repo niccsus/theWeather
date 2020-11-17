@@ -15,7 +15,8 @@ public class Weather {
                    new BufferedReader(new InputStreamReader(System.in)); 
         // Reading data using readLine 
         System.out.println("Enter CIty Name: ");
-        String input = reader.readLine(); 
+        String input = reader.readLine();
+        input = input.replaceAll(" ","+");  //required for openweather API to ereplace all space with +
         Fetch weather = new Fetch(input);
         Forecast forecast = new Forecast(weather.json);
         System.out.println(forecast.get_temp());
