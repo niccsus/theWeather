@@ -1,5 +1,6 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.io.IOException; 
 
 //Class for going through json files and returning specific data points
 public class Forecast {
@@ -16,8 +17,8 @@ public class Forecast {
 
 
 
-    public Forecast(JSONObject json){
-        this.json = json;
+    public Forecast() throws IOException {
+        this.json = set_json();
         this.max_temp = this.json.getJSONObject("main").getInt("temp_max");  //get max_temp from json
         this.feel = this.json.getJSONObject("main").getInt("feels_like");   //get feels like temp from json
         this.temp = this.json.getJSONObject("main").getInt("temp");     //get temp from json
@@ -33,6 +34,24 @@ public class Forecast {
 
     }
 
+    //calls Input to get user input
+    //calls Fetch to get json file
+    //returns json to constructor
+    private JSONObject set_json() throws IOException{
+        Input input = new Input();
+        Fetch fetch = new Fetch();
+        if(input.is_name){
+            fetch = new Fetch(input.city_name);
+        }
+        else if(input.is_lat_lon){
+            fetch = new Fetch(input.lat_lon);
+        }
+        else if(input.is_other){
+            fetch = new Fetch();
+        }
+        
+        return fetch.json;
+    }
     //return temp
     public int get_temp(){
         return temp;

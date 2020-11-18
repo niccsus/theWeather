@@ -36,12 +36,12 @@ public class Input {
             this.lon = input.split(",")[1];
             this.lat_lon[0] = lat;
             this.lat_lon[1] = lon;  
-            is_name = true;     //sets type of input to cityname
+            is_lat_lon = true;     //sets type of input to cityname
         //if user input starts with alphabet characters, assume it's city name and set values
         } else if(input.substring(0, 1).matches("^[a-zA-Z]*$")){
             this.city_name = this.input;
             this.city_name = this.city_name.replaceAll(" ","+");  //required for openweather API to ereplace all space with +
-            is_lat_lon = true;  //sets type of input to lat_lon
+            is_name = true;  //sets type of input to lat_lon
         //if user input starts with naything else, set it as city name
         } else{
             is_other = true;    //sets type of input to other

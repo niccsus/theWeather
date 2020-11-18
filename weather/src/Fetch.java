@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.net.URI;
 
 
+
 public class Fetch {
     private final String key = "843b5b1093b07ff0e1d9f681a3a3cb0c";  //API token
     private String query;   //API URL
