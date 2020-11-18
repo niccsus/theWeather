@@ -9,7 +9,7 @@ public class Weather {
 
     public static void begin() throws IOException  
     { 
- 
+        UI.frame(); //calls the frame method
         System.out.println("Enter CIty Name: ");
         Forecast forecast = new Forecast();
         System.out.println(forecast.get_temp());
