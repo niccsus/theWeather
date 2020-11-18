@@ -6,7 +6,7 @@ public class UI {
         JFrame frame = new JFrame("The Weather");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(900,600));
+        frame.setSize(new Dimension(800,900));
 
         // Bottom Text Field
         JPanel southCenter = new JPanel(new GridLayout(1, 1));
@@ -28,7 +28,7 @@ public class UI {
 
 
         //Background Image
-        frame.add(new JLabel(new ImageIcon("/Users/victorperaza/git/theWeather/theWeather/weather/src/pic.jpg"))); //adds picture(change file path for it to work)
+        frame.add(new JLabel(new ImageIcon("/Users/victorperaza/git/theWeather/theWeather/weather/src/pic.gif"))); //adds picture(change file path for it to work)
 
         frame.setVisible(true);
 
