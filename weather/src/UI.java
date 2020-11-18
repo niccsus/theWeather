@@ -1,7 +1,7 @@
 import javax.swing.*;  
 
 public class UI {  
-    public static void main(String[] args) {  
+    public static void frame() {
         JFrame frame = new JFrame();
         JButton button = new JButton("The Weather");
 
