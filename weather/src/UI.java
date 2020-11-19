@@ -6,13 +6,12 @@ import java.net.http.WebSocket.Listener;
 
 public class UI implements ActionListener {
 
+    static JTextField text_field;
     static JLabel label;
     private static Forecast forecast;
 
     public static void frame() throws IOException {
-
-        System.out.println("Enter CIty Name: ");
-        forecast = new Forecast();
+        
         JFrame frame = new JFrame("The Weather");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,7 +19,8 @@ public class UI implements ActionListener {
 
         // Bottom Text Field
         JPanel southCenter = new JPanel(new GridLayout(1, 1));
-        southCenter.add(new JTextField());
+        text_field = new JTextField();
+        southCenter.add(text_field);
 
 
 
@@ -57,6 +57,14 @@ public class UI implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        String input = text_field.getText();
+        try {
+            forecast = new Forecast(input);
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
         label.setText(""+forecast.get_temp());
 
     }
