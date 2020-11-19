@@ -17,8 +17,8 @@ public class Forecast {
 
 
 
-    public Forecast() throws IOException {
-        this.json = set_json();
+    public Forecast(String user_input) throws IOException {
+        this.json = set_json(user_input);
         this.max_temp = this.json.getJSONObject("main").getInt("temp_max");  //get max_temp from json
         this.feel = this.json.getJSONObject("main").getInt("feels_like");   //get feels like temp from json
         this.temp = this.json.getJSONObject("main").getInt("temp");     //get temp from json
@@ -37,8 +37,8 @@ public class Forecast {
     //calls Input to get user input
     //calls Fetch to get json file
     //returns json to constructor
-    private JSONObject set_json() throws IOException{
-        Input input = new Input();
+    private JSONObject set_json(String user_input) throws IOException{
+        Input input = new Input(user_input);
         Fetch fetch = new Fetch();
         if(input.is_name){
             fetch = new Fetch(input.city_name);
