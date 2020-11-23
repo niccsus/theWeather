@@ -1,5 +1,6 @@
 import javax.swing.*;  
 import java.awt.*;
+//windowBuilder
 
 public class UI {  
     public static void frame() {
