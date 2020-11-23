@@ -1,6 +1,7 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.IOException; 
+
+import java.io.IOException;
 
 //Class for going through json files and returning specific data points
 public class Forecast {
