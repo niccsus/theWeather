@@ -13,6 +13,7 @@ public class Weather {
         System.out.println("Enter CIty Name: ");
         Forecast forecast = new Forecast();
         System.out.println(forecast.get_temp());
+        System.out.println("Celsius = " + String.format("%.3f",forecast.get_CelsiusTemp()));
         System.out.println(forecast.get_cloud());
 
         
