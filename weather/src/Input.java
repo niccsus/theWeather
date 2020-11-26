@@ -1,6 +1,5 @@
-import java.io.BufferedReader; 
 import java.io.IOException; 
-import java.io.InputStreamReader; 
+ 
 
 //class for taking user input and formatting it to work with API
 public class Input {
