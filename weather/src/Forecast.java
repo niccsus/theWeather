@@ -89,4 +89,5 @@ public class Forecast {
     public String get_cloud(){
         return cloud;
     }
+
 }
