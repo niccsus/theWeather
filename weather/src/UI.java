@@ -41,7 +41,7 @@ public class UI implements ActionListener {
 
 
         //Background Image
-        //frame.add(new JLabel(new ImageIcon("C:\\Users\\Foad_Olfat\\vs_project\\theWeather\\weather\\src\\pic.gif"))); //adds picture(change file path for it to work)
+        frame.add(new JLabel(new ImageIcon("C:\\Users\\Foad_Olfat\\vs_project\\theWeather\\weather\\src\\pic.gif"))); //adds picture(change file path for it to work)
         frame.setVisible(true);
 
 
