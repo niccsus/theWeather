@@ -59,17 +59,6 @@ public class UI {
 		/**************CELSIUS RADIO BUTTON******************/
 		
 		celciusButton = new JRadioButton("Celsius");
-
-		//CELSIUS ACTION LISTENER
-		celciusButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (celciusButton.isSelected()) {
-					fahreneitButton.setSelected(false);
-					
-				}
-			}
-		});
-
 		celciusButton.setForeground(new Color(230, 230, 250));
 		celciusButton.setBounds(632, 273, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(celciusButton);	//ADDS RADIO BUTTON
@@ -77,17 +66,6 @@ public class UI {
 		/***************FAHRENHEIT RADIO BUTTON***************/
 		
 		fahreneitButton = new JRadioButton("Fahrenheit ");
-
-		// FAHRENHEIT ACTION LISTENER
-		fahreneitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (fahreneitButton.isSelected()) {
-					celciusButton.setSelected(false);
-					
-				}
-			}
-		});
-
 		fahreneitButton.setForeground(new Color(230, 230, 250));
 		fahreneitButton.setBounds(632, 308, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(fahreneitButton);	//ADDS RADIO BUTTON
@@ -95,6 +73,7 @@ public class UI {
 		/***************TEXTFIELD AREA**********************/
 		
 		textField = new JTextField();
+		
 		textField.setHorizontalAlignment(SwingConstants.CENTER);		//TEXT PLACEMENT
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 21));	//FONT
 		textField.setBounds(106, 342, 514, 45);							//TEXTFIELD PLACEMENT
@@ -105,7 +84,45 @@ public class UI {
 		label = new JLabel("");
 		label.setFont(new Font("Lucida Grande", Font.BOLD, 38));
         label.setBounds(400, 50, 141, 61);
-        frame.getContentPane().add(label);
+		frame.getContentPane().add(label);
+
+		/****************CELSIUS ACTION LISTENER*****************/
+		celciusButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (celciusButton.isSelected()) {
+					fahreneitButton.setSelected(false);
+					
+				}
+			}
+		});
+
+		/****************FAHRENHEIT ACTION LISTENER*****************/
+		fahreneitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fahreneitButton.isSelected()) {
+					celciusButton.setSelected(false);
+					
+				}
+			}
+		});
+		
+		/****************TEXTFIELD (PRESS ENTER) ACTION LISTENER******************/
+		textField.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					//textField.setText(textField.getText());
+					String input = textField.getText();
+					try {
+						forecast = new Forecast(input);
+					} catch (IOException e1) {
+		
+						e1.printStackTrace();
+					}
+					label.setText(""+forecast.get_temp());
+					
+				}
+			}
+		});
 
         /****************BUTTON AND ACTION LISTENER******************/
         button.addActionListener(new ActionListener() {
