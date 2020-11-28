@@ -14,6 +14,8 @@ public class UI {
 	private JTextField textField;
 	private JRadioButton celciusButton;
 	private JRadioButton fahreneitButton;
+	static JLabel celsius;
+
     
     public static void frame() throws IOException {
         
@@ -73,7 +75,6 @@ public class UI {
 		frame.getContentPane().add(fahreneitButton);	//ADDS RADIO BUTTON
 		
 		/***************TEXTFIELD AREA**********************/
-		
 		textField = new JTextField();
 		
 		textField.setHorizontalAlignment(SwingConstants.CENTER);		//TEXT PLACEMENT
@@ -83,19 +84,19 @@ public class UI {
 		textField.setColumns(10);
         textField.setBackground(UIManager.getColor("Button.highlight"));
 		
-		//Temp display location
+		/***************TEMPERATURE**********************/
 		tempLabel = new JLabel("");
 		tempLabel.setFont(new Font("Lucida Grande", Font.BOLD, 38));
         tempLabel.setBounds(400, 50, 141, 61);
 		frame.getContentPane().add(tempLabel);
 
-		//humidity display location
+		/***************HUMIDITY**********************/
 		humidLabel = new JLabel("");
 		humidLabel.setFont(new Font("Lucida Grande", Font.BOLD, 38));
         humidLabel.setBounds(300, 50, 141, 61);
 		frame.getContentPane().add(humidLabel);
 		
-		//cloud display location
+		/***************WEATHER TYPE**********************/
 		cloudLabel = new JLabel("");
 		cloudLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
         cloudLabel.setBounds(350, 100, 141, 61);
@@ -106,6 +107,7 @@ public class UI {
 			public void actionPerformed(ActionEvent e) {
 				if (celciusButton.isSelected()) {
 					fahreneitButton.setSelected(false);
+					tempLabel.setText(""+(int)forecast.get_CelsiusTemp() + "°C");
 					
 				}
 			}
@@ -116,6 +118,7 @@ public class UI {
 			public void actionPerformed(ActionEvent e) {
 				if (fahreneitButton.isSelected()) {
 					celciusButton.setSelected(false);
+					tempLabel.setText(""+forecast.get_temp() + "°F");
 					
 				}
 			}
@@ -133,9 +136,10 @@ public class UI {
 		
 						e1.printStackTrace();
 					}
-					tempLabel.setText(""+forecast.get_temp());
+					tempLabel.setText(""+forecast.get_temp() + "");
 					humidLabel.setText(""+forecast.get_humidity()+"%");
 					cloudLabel.setText(""+forecast.get_cloud());
+
 					
 				}
 			}
