@@ -1,0 +1,10 @@
+{
+    //Make sure you've downloaded json JAR library
+    //I used the following link:
+    //https://repo1.maven.org/maven2/org/json/json/20201115/json-20201115.jar
+    //Make sure the path on your machine is correct
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/Users/victorperaza/Downloads/json-20201115.jar"
+    ]
+}
