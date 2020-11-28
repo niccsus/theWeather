@@ -6,7 +6,9 @@ import java.io.IOException;
 public class UI {
 
     static JTextField text_field;
-    static JLabel label;
+	static JLabel tempLabel;
+	static JLabel humidLabel;
+	static JLabel cloudLabel;
     private static Forecast forecast;
     private JFrame frame;
 	private JTextField textField;
@@ -80,11 +82,24 @@ public class UI {
 		frame.getContentPane().add(textField);							//ADDS TEXTFIELD
 		textField.setColumns(10);
         textField.setBackground(UIManager.getColor("Button.highlight"));
-        
-		label = new JLabel("");
-		label.setFont(new Font("Lucida Grande", Font.BOLD, 38));
-        label.setBounds(400, 50, 141, 61);
-		frame.getContentPane().add(label);
+		
+		//Temp display location
+		tempLabel = new JLabel("");
+		tempLabel.setFont(new Font("Lucida Grande", Font.BOLD, 38));
+        tempLabel.setBounds(400, 50, 141, 61);
+		frame.getContentPane().add(tempLabel);
+
+		//humidity display location
+		humidLabel = new JLabel("");
+		humidLabel.setFont(new Font("Lucida Grande", Font.BOLD, 38));
+        humidLabel.setBounds(300, 50, 141, 61);
+		frame.getContentPane().add(humidLabel);
+		
+		//cloud display location
+		cloudLabel = new JLabel("");
+		cloudLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+        cloudLabel.setBounds(350, 100, 141, 61);
+		frame.getContentPane().add(cloudLabel);
 
 		/****************CELSIUS ACTION LISTENER*****************/
 		celciusButton.addActionListener(new ActionListener() {
@@ -118,7 +133,9 @@ public class UI {
 		
 						e1.printStackTrace();
 					}
-					label.setText(""+forecast.get_temp());
+					tempLabel.setText(""+forecast.get_temp());
+					humidLabel.setText(""+forecast.get_humidity()+"%");
+					cloudLabel.setText(""+forecast.get_cloud());
 					
 				}
 			}
@@ -134,7 +151,9 @@ public class UI {
 
                 e1.printStackTrace();
             }
-            label.setText(""+forecast.get_temp());
+			tempLabel.setText(""+forecast.get_temp());
+			humidLabel.setText(""+forecast.get_humidity()+"%");
+			cloudLabel.setText(""+forecast.get_cloud());
                 }
         });
 		/****************BACKGROUND IMAGE******************/		
