@@ -9,7 +9,9 @@ public class UI {
     static JLabel label;
     private static Forecast forecast;
     private JFrame frame;
-    private JTextField textField;
+	private JTextField textField;
+	private JRadioButton celciusButton;
+	private JRadioButton fahreneitButton;
     
     public static void frame() throws IOException {
         
@@ -56,17 +58,39 @@ public class UI {
 		
 		/**************CELSIUS RADIO BUTTON******************/
 		
-		JRadioButton radiobutton1 = new JRadioButton("Celsius");
-		radiobutton1.setForeground(new Color(230, 230, 250));
-		radiobutton1.setBounds(632, 273, 141, 23);	//RADIO BUTTON PLACEMENT
-		frame.getContentPane().add(radiobutton1);	//ADDS RADIO BUTTON
+		celciusButton = new JRadioButton("Celsius");
+
+		//CELSIUS ACTION LISTENER
+		celciusButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (celciusButton.isSelected()) {
+					fahreneitButton.setSelected(false);
+					
+				}
+			}
+		});
+
+		celciusButton.setForeground(new Color(230, 230, 250));
+		celciusButton.setBounds(632, 273, 141, 23);	//RADIO BUTTON PLACEMENT
+		frame.getContentPane().add(celciusButton);	//ADDS RADIO BUTTON
 		
 		/***************FAHRENHEIT RADIO BUTTON***************/
 		
-		JRadioButton radiobutton2 = new JRadioButton("Fahrenheit ");
-		radiobutton2.setForeground(new Color(230, 230, 250));
-		radiobutton2.setBounds(632, 308, 141, 23);	//RADIO BUTTON PLACEMENT
-		frame.getContentPane().add(radiobutton2);	//ADDS RADIO BUTTON
+		fahreneitButton = new JRadioButton("Fahrenheit ");
+
+		// FAHRENHEIT ACTION LISTENER
+		fahreneitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fahreneitButton.isSelected()) {
+					celciusButton.setSelected(false);
+					
+				}
+			}
+		});
+
+		fahreneitButton.setForeground(new Color(230, 230, 250));
+		fahreneitButton.setBounds(632, 308, 141, 23);	//RADIO BUTTON PLACEMENT
+		frame.getContentPane().add(fahreneitButton);	//ADDS RADIO BUTTON
 		
 		/***************TEXTFIELD AREA**********************/
 		
@@ -100,7 +124,7 @@ public class UI {
 		JLabel lblNewLabel = new JLabel("");
 		Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
 		lblNewLabel.setIcon(new ImageIcon(picture));
-		lblNewLabel.setBounds(0, 0, 800, 405);													//IMAGE PLACEMENT
+		lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
 		frame.getContentPane().add(lblNewLabel);   
 	}
 
