@@ -2,11 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-<<<<<<< HEAD
-import java.net.http.WebSocket.Listener;
-//windowBuilder
-=======
->>>>>>> 8d3e39e9c35ac63f4d267c10e8356e139c8acce9
 
 public class UI {
 
@@ -62,14 +57,14 @@ public class UI {
 		/**************CELSIUS RADIO BUTTON******************/
 		
 		JRadioButton radiobutton1 = new JRadioButton("Celsius");
-		radiobutton1.setForeground(new Color(47, 79, 79));
+		radiobutton1.setForeground(new Color(230, 230, 250));
 		radiobutton1.setBounds(632, 273, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(radiobutton1);	//ADDS RADIO BUTTON
 		
 		/***************FAHRENHEIT RADIO BUTTON***************/
 		
 		JRadioButton radiobutton2 = new JRadioButton("Fahrenheit ");
-		radiobutton2.setForeground(new Color(47, 79, 79));
+		radiobutton2.setForeground(new Color(230, 230, 250));
 		radiobutton2.setBounds(632, 308, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(radiobutton2);	//ADDS RADIO BUTTON
 		
@@ -83,8 +78,9 @@ public class UI {
 		textField.setColumns(10);
         textField.setBackground(UIManager.getColor("Button.highlight"));
         
-        label = new JLabel("");
-        label.setBounds(334, 96, 61, 16);
+		label = new JLabel("");
+		label.setFont(new Font("Lucida Grande", Font.BOLD, 38));
+        label.setBounds(400, 50, 141, 61);
         frame.getContentPane().add(label);
 
         /****************BUTTON AND ACTION LISTENER******************/
@@ -100,13 +96,12 @@ public class UI {
             label.setText(""+forecast.get_temp());
                 }
         });
-		/****************BACKGROUND IMAGE******************/
-		
+		/****************BACKGROUND IMAGE******************/		
 		JLabel lblNewLabel = new JLabel("");
-		Image picture = new ImageIcon("C:\\Users\\Foad_Olfat\\vs_project\\theWeather\\weather\\src\\pic.gif").getImage();	//SETS IMAGE
+		Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
 		lblNewLabel.setIcon(new ImageIcon(picture));
 		lblNewLabel.setBounds(0, 0, 800, 405);													//IMAGE PLACEMENT
-		frame.getContentPane().add(lblNewLabel);
+		frame.getContentPane().add(lblNewLabel);   
 	}
 
 
