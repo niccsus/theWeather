@@ -16,7 +16,8 @@ public class UI {
 	private JRadioButton celciusButton;
 	private JRadioButton fahreneitButton;
 	static JLabel celsius;
-	private boolean unit;	//if true, requests F 
+	private boolean unit;	//if true, requests F
+	static JLabel lblNewLabel = new JLabel(""); 
 
     
     public static void frame() throws IOException {
@@ -138,7 +139,7 @@ public class UI {
 			}
 		});
 		   
-		
+		set_Background_Image(frame);
 		/****************TEXTFIELD (PRESS ENTER) ACTION LISTENER******************/
 		textField.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
@@ -161,20 +162,14 @@ public class UI {
 					cloudLabel.setText(""+today.get_cloud());
 
 
-					JLabel map_label = new JLabel("");
-					map_label.setIcon(today.map);
-					map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-					frame.getContentPane().add(map_label);
-								/****************BACKGROUND IMAGE******************/		
-			JLabel lblNewLabel = new JLabel("");
-			Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
-			lblNewLabel.setIcon(new ImageIcon(picture));
-			lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-			frame.getContentPane().add(lblNewLabel);  
+					set_map(frame);
+			
 					
-				/*	JLabel lblNewLabel_2 = new JLabel();
-					lblNewLabel_2.setBounds(263, 136, 293, 160);
-					frame.getContentPane().add(lblNewLabel_2); */
+					set_Background_Image(frame);
+					
+					// JLabel lblNewLabel_2 = new JLabel();
+					// lblNewLabel_2.setBounds(263, 136, 293, 160);
+					// frame.getContentPane().add(lblNewLabel_2); 
 					
 				}
 			}
@@ -199,27 +194,29 @@ public class UI {
 			humidLabel.setText(""+today.get_humidity()+"%");
 			cloudLabel.setText(""+today.get_cloud());
 
-			JLabel map_label = new JLabel("");
-			map_label.setIcon(today.map);
-			map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-			frame.getContentPane().add(map_label);
+			set_map(frame);
 
-						/****************BACKGROUND IMAGE******************/		
-						JLabel lblNewLabel = new JLabel("");
-						Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
-						lblNewLabel.setIcon(new ImageIcon(picture));
-						lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-						frame.getContentPane().add(lblNewLabel);  
+			set_Background_Image(frame);			 
             }
         });
-		/****************BACKGROUND IMAGE******************/		
-		/* JLabel lblNewLabel = new JLabel("");
-		 Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
-		 lblNewLabel.setIcon(new ImageIcon(picture));
-		 lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-		 frame.getContentPane().add(lblNewLabel);  */
+		
 
 			
+	}
+	public static void set_Background_Image(JFrame frame){
+		/****************BACKGROUND IMAGE******************/
+		lblNewLabel.setText("");		
+		Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
+		lblNewLabel.setIcon(new ImageIcon(picture));
+		lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+		frame.getContentPane().add(lblNewLabel); 
+	}
+
+	public static void set_map(JFrame frame){
+		JLabel map_label = new JLabel("");
+		map_label.setIcon(today.map);
+		map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+		frame.getContentPane().add(map_label);
 	}
 
 

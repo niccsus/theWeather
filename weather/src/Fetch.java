@@ -29,21 +29,18 @@ public class Fetch {
 
     // constructor in case user inputs string
     public Fetch(String city) throws IOException {
-        //this.query = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + key;
         this.google_query = "https://maps.googleapis.com/maps/api/geocode/json?address="+ city + "&key=" + google_key;
         Geolocator geolocator = new Geolocator(google_query);
-        //this.query = "https://api.openweathermap.org/data/2.5/weather?lat=" + geolocator.lat + "&lon=" + geolocator.lon + "&units=imperial&appid=" + key;
         this.query = "https://api.openweathermap.org/data/2.5/onecall?lat="+ geolocator.lat + "&lon=" + geolocator.lon + "&units=imperial&appid=" + key;
         set_json(query);
-        static_map_query = "https://maps.googleapis.com/maps/api/staticmap?center=" + geolocator.lat + "," + geolocator.lon + "&zoom=13&size=600x300&maptype=roadmap&key=" + google_key;
+        static_map_query = "https://maps.googleapis.com/maps/api/staticmap?center=" + geolocator.lat + "," + geolocator.lon + "&zoom=13&size=300x300&maptype=roadmap&key=" + google_key;
         URL url = new URL(static_map_query);
         BufferedImage img = ImageIO.read(url);       
         map = new ImageIcon(img);
+        System.out.println(static_map_query);
     }
     //constructor in case user inputs lat/lon
-    //WORK IN PROGRESS
     public Fetch(String[] lat_lon){
-        //38.7521235,-121.2880059
         this.query = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat_lon[0] + "&lon=" + lat_lon[1] + "&units=imperial&appid=" + key;
         set_json(query);
     }
