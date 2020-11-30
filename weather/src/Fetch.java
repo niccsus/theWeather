@@ -37,7 +37,6 @@ public class Fetch {
         URL url = new URL(static_map_query);
         BufferedImage img = ImageIO.read(url);       
         map = new ImageIcon(img);
-        System.out.println(static_map_query);
     }
     //constructor in case user inputs lat/lon
     public Fetch(String[] lat_lon){
