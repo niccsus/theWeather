@@ -19,6 +19,7 @@ public class UI {
 	private boolean unit;	//if true, requests F
 	static JLabel lblNewLabel = new JLabel(""); 
 	static JLabel map_label = new JLabel("");
+	static JLabel icon = new JLabel("");
 
     
     public static void frame() throws IOException {
@@ -162,7 +163,7 @@ public class UI {
 					humidLabel.setText(""+today.get_humidity()+"%");
 					cloudLabel.setText(""+today.get_cloud());
 
-
+					set_icon(frame);
 					set_map(frame);
 					set_Background_Image(frame);
 					
@@ -189,6 +190,7 @@ public class UI {
 			humidLabel.setText(""+today.get_humidity()+"%");
 			cloudLabel.setText(""+today.get_cloud());
 
+			set_icon(frame);
 			set_map(frame);
 			set_Background_Image(frame);			 
             }
@@ -204,6 +206,11 @@ public class UI {
 		lblNewLabel.setIcon(new ImageIcon(picture));
 		lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
 		frame.getContentPane().add(lblNewLabel); 
+	}
+	public static void set_icon(JFrame frame){
+		icon.setIcon(today.get_icon());
+		icon.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+		frame.getContentPane().add(icon);
 	}
 	/****************STATIC MAP******************/
 	public static void set_map(JFrame frame){

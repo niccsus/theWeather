@@ -1,8 +1,9 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import javax.imageio.ImageIO;
 import java.io.IOException;
-
+import java.net.URL;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
 //Class for going through json files and returning specific data points
@@ -18,6 +19,8 @@ public class Today {
     private int wind_speed;
     private int wind_deg;
     ImageIcon map = new ImageIcon();
+    private String icon_url = "";
+    ImageIcon icon = new ImageIcon();
 
 
     public Today(String user_input) throws IOException {
@@ -33,6 +36,10 @@ public class Today {
         JSONArray cloud_condition = (JSONArray) current.get("weather");        //create json array from weather
         JSONObject currentObj = (JSONObject) cloud_condition.get(0);        //create json obect from json array
         this.cloud = (String) currentObj.get("description");                //get cloud description from json
+        this.icon_url = "http://openweathermap.org/img/w/" + currentObj.get("icon") + ".png";
+        URL url = new URL(icon_url);
+        BufferedImage img = ImageIO.read(url);       
+        icon = new ImageIcon(img);
 
     }
 
@@ -40,8 +47,7 @@ public class Today {
     //calls Fetch to get json file
     //returns json to constructor
     private JSONObject set_json(String user_input) throws IOException{
-        Input input = new Input(user_input);
-        Fetch fetch = new Fetch(input.get_loc());
+        Fetch fetch = new Fetch(user_input);
         this.map = fetch.map;
         return fetch.json;
     }
@@ -76,6 +82,12 @@ public class Today {
     //return cloudy status
     public String get_cloud(){
         return cloud;
+    }
+    public String get_icon_url(){
+        return icon_url;
+    }
+    public ImageIcon get_icon(){
+        return icon;
     }
 
 }
