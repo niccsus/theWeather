@@ -106,6 +106,12 @@ public class UI {
         cloudLabel.setBounds(350, 100, 141, 61);
 		frame.getContentPane().add(cloudLabel);
 
+		/**************COMBO BOX***************************/
+		String[] boxOptions = {"Sacramento","San Franisco","Los Angeles","San Diego","New York"};
+		JComboBox<String> comboBox = new JComboBox<>(boxOptions);
+		comboBox.setBounds(650, 6, 152, 27);
+		frame.getContentPane().add(comboBox);
+
 		/****************CELSIUS ACTION LISTENER*****************/
 		celciusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
