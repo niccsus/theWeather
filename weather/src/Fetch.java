@@ -23,9 +23,7 @@ public class Fetch {
     ImageIcon map = new ImageIcon();
     String static_map_query;
 
-    public Fetch() {
 
-    }
 
     // constructor in case user inputs string
     public Fetch(String city) throws IOException {
@@ -38,11 +36,7 @@ public class Fetch {
         BufferedImage img = ImageIO.read(url);       
         map = new ImageIcon(img);
     }
-    //constructor in case user inputs lat/lon
-    public Fetch(String[] lat_lon){
-        this.query = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat_lon[0] + "&lon=" + lat_lon[1] + "&units=imperial&appid=" + key;
-        set_json(query);
-    }
+
 
     //creates JSON object based on user input
     public void set_json(String query){

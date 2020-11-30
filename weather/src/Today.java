@@ -41,16 +41,7 @@ public class Today {
     //returns json to constructor
     private JSONObject set_json(String user_input) throws IOException{
         Input input = new Input(user_input);
-        Fetch fetch = new Fetch();
-        if(input.is_name){
-            fetch = new Fetch(input.city_name);
-        }
-        else if(input.is_lat_lon){
-            fetch = new Fetch(input.lat_lon);
-        }
-        else if(input.is_other){
-            fetch = new Fetch();
-        }
+        Fetch fetch = new Fetch(input.get_loc());
         this.map = fetch.map;
         return fetch.json;
     }
