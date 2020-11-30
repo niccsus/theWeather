@@ -57,10 +57,15 @@ public class Forecast {
     public int get_temp(){
         return temp;
     }
+        //return temp in celsius
+    public double get_CelsiusTemp(){
+        return (temp-32)*0.5556;
+    }
     //return min temp
     public int get_min_temp(){
         return min_temp;
     }
+
     //return max temp
     public int get_max_temp(){
         return max_temp;
