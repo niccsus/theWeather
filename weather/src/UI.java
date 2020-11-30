@@ -10,7 +10,7 @@ public class UI {
 	static JLabel tempLabel;
 	static JLabel humidLabel;
 	static JLabel cloudLabel;
-    private static Forecast forecast;
+    private static Today today;
     private JFrame frame;
 	private JTextField textField;
 	private JRadioButton celciusButton;
@@ -80,7 +80,10 @@ public class UI {
 		
 		/***************TEXTFIELD AREA**********************/
 		textField = new JTextField();
+<<<<<<< HEAD
 		textField.setToolTipText("Enter City Name");
+=======
+>>>>>>> 89f47cc6ff725e62a2d6f088d7a6b776b98715b5
 		textField.setHorizontalAlignment(SwingConstants.CENTER);		//TEXT PLACEMENT
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 21));	//FONT
 		textField.setBounds(106, 342, 514, 45);							//TEXTFIELD PLACEMENT
@@ -113,7 +116,7 @@ public class UI {
 				if (celciusButton.isSelected()) {
 					fahreneitButton.setSelected(false);
 					unit = false;
-					tempLabel.setText(""+(int)forecast.get_CelsiusTemp() + "°C");
+					tempLabel.setText(""+(int)today.get_CelsiusTemp() + "°C");
 					
 				}
 			}
@@ -126,7 +129,7 @@ public class UI {
 				if (fahreneitButton.isSelected()) {
 					celciusButton.setSelected(false);
 					unit = true;
-					tempLabel.setText(""+forecast.get_temp() + "°F");
+					tempLabel.setText(""+today.get_temp() + "°F");
 					
 				}
 			}
@@ -139,19 +142,19 @@ public class UI {
 					//textField.setText(textField.getText());
 					String input = textField.getText();
 					try {
-						forecast = new Forecast(input);
+						today = new Today(input);
 					} catch (IOException e1) {
 		
 						e1.printStackTrace();
 					}
 					if(unit){
-						tempLabel.setText(""+forecast.get_temp()+ "°F");
+						tempLabel.setText(""+today.get_temp()+ "°F");
 					}
 					else{
-						tempLabel.setText(""+(int)forecast.get_CelsiusTemp()+ "°C");
+						tempLabel.setText(""+(int)today.get_CelsiusTemp()+ "°C");
 					}
-					humidLabel.setText(""+forecast.get_humidity()+"%");
-					cloudLabel.setText(""+forecast.get_cloud());
+					humidLabel.setText(""+today.get_humidity()+"%");
+					cloudLabel.setText(""+today.get_cloud());
 
 					
 				}
@@ -163,19 +166,19 @@ public class UI {
             public void actionPerformed(ActionEvent e) {
                 String input = textField.getText();
             try {
-                forecast = new Forecast(input);
+                today = new Today(input);
             } catch (IOException e1) {
 
                 e1.printStackTrace();
 			}
 			if(unit){
-				tempLabel.setText(""+forecast.get_temp()+ "°F");
+				tempLabel.setText(""+today.get_temp()+ "°F");
 			}
 			else{
-				tempLabel.setText(""+(int)forecast.get_CelsiusTemp()+ "°C");
+				tempLabel.setText(""+(int)today.get_CelsiusTemp()+ "°C");
 			}
-			humidLabel.setText(""+forecast.get_humidity()+"%");
-			cloudLabel.setText(""+forecast.get_cloud());
+			humidLabel.setText(""+today.get_humidity()+"%");
+			cloudLabel.setText(""+today.get_cloud());
                 }
         });
 		/****************BACKGROUND IMAGE******************/		
