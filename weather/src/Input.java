@@ -1,6 +1,5 @@
-import java.io.BufferedReader; 
 import java.io.IOException; 
-import java.io.InputStreamReader; 
+ 
 
 //class for taking user input and formatting it to work with API
 public class Input {
@@ -14,16 +13,12 @@ public class Input {
     String[] lat_lon = new String[2];   //array of strings containing lat in index 0 abd lon in index 1
 
 
-    public Input() throws IOException {
+    public Input(String input) throws IOException {
         //types of input, all initialized to false
         is_name = false;
         is_lat_lon = false;
         is_other = false;
-        //enter data using BufferReader 
-        BufferedReader reader =  
-                   new BufferedReader(new InputStreamReader(System.in));
-        //reading data using readline
-        String input = reader.readLine();
+        
         this.input = input;
         check_type();
     }
