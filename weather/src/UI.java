@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import javax.swing.plaf.basic.BasicTextFieldUI;  
 
 public class UI {
 
@@ -42,7 +43,6 @@ public class UI {
 	private void initialize() {
 		
 		/***************WINDOW FRAME************************/
-		
 		frame = new JFrame();
 		frame.setTitle("The Weather");
 		frame.setBackground(Color.BLACK);
@@ -54,7 +54,6 @@ public class UI {
 		
 		
 		/***************SEARCH BUTTON**********************/
-		
 		JButton button = new JButton("Search");
 		button.setForeground(new Color(47, 79, 79));
 		button.setBackground(new Color(100, 149, 237)); //BUTTON COLOR
@@ -62,7 +61,6 @@ public class UI {
 		frame.getContentPane().add(button);				//ADDING BUTTTON
 		
 		/**************CELSIUS RADIO BUTTON******************/
-		
 		celciusButton = new JRadioButton("Celsius");
 		celciusButton.setForeground(new Color(230, 230, 250));
 		celciusButton.setOpaque(false);
@@ -71,7 +69,6 @@ public class UI {
 		frame.getContentPane().add(celciusButton);	//ADDS RADIO BUTTON
 		
 		/***************FAHRENHEIT RADIO BUTTON***************/
-		
 		fahreneitButton = new JRadioButton("Fahrenheit ");
 		fahreneitButton.setSelected(true);
 		unit = true;
@@ -83,7 +80,7 @@ public class UI {
 		
 		/***************TEXTFIELD AREA**********************/
 		textField = new JTextField();
-		
+		textField.setToolTipText("Enter City Name");
 		textField.setHorizontalAlignment(SwingConstants.CENTER);		//TEXT PLACEMENT
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 21));	//FONT
 		textField.setBounds(106, 342, 514, 45);							//TEXTFIELD PLACEMENT
