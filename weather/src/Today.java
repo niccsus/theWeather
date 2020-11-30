@@ -3,6 +3,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
+
 //Class for going through json files and returning specific data points
 public class Today {
     private JSONObject json = new JSONObject();
@@ -15,7 +17,7 @@ public class Today {
     private int cloud_percent;
     private int wind_speed;
     private int wind_deg;
-
+    ImageIcon map = new ImageIcon();
 
 
     public Today(String user_input) throws IOException {
@@ -49,7 +51,7 @@ public class Today {
         else if(input.is_other){
             fetch = new Fetch();
         }
-        
+        this.map = fetch.map;
         return fetch.json;
     }
     //return temp

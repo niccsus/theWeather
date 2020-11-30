@@ -154,7 +154,13 @@ public class UI {
 					}
 					humidLabel.setText(""+today.get_humidity()+"%");
 					cloudLabel.setText(""+today.get_cloud());
+					
 
+					JLabel map_label = new JLabel("");
+					map_label.setIcon(today.map);
+					map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+					frame.getContentPane().add(map_label);
+					
 					
 				}
 			}
@@ -178,15 +184,32 @@ public class UI {
 			}
 			humidLabel.setText(""+today.get_humidity()+"%");
 			cloudLabel.setText(""+today.get_cloud());
-                }
+
+
+
+
+			JLabel map_label = new JLabel("");
+			map_label.setIcon(today.map);
+			map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+			frame.getContentPane().add(map_label);
+            }
         });
 		/****************BACKGROUND IMAGE******************/		
-		JLabel lblNewLabel = new JLabel("");
-		Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
-		lblNewLabel.setIcon(new ImageIcon(picture));
-		lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-		frame.getContentPane().add(lblNewLabel);   
+		// JLabel lblNewLabel = new JLabel("");
+		// Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
+		// lblNewLabel.setIcon(new ImageIcon(picture));
+		// lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+		// frame.getContentPane().add(lblNewLabel);  
+
+
+
+		  
+		
+		
+		
 	}
+
+
 
 
 
