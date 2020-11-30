@@ -35,6 +35,7 @@ public class UI {
 
     public UI() {
 		initialize();
+		
 	}
 
 	/**
@@ -85,7 +86,7 @@ public class UI {
 		textField.setBounds(106, 342, 514, 45);							//TEXTFIELD PLACEMENT
 		frame.getContentPane().add(textField);							//ADDS TEXTFIELD
 		textField.setColumns(10);
-        textField.setBackground(UIManager.getColor("Button.highlight"));
+		textField.setBackground(UIManager.getColor("Button.highlight"));
 		
 		/***************TEMPERATURE**********************/
 		tempLabel = new JLabel("");
@@ -136,6 +137,7 @@ public class UI {
 				}
 			}
 		});
+		   
 		
 		/****************TEXTFIELD (PRESS ENTER) ACTION LISTENER******************/
 		textField.addKeyListener(new KeyAdapter() {
@@ -157,13 +159,22 @@ public class UI {
 					}
 					humidLabel.setText(""+today.get_humidity()+"%");
 					cloudLabel.setText(""+today.get_cloud());
-					
+
 
 					JLabel map_label = new JLabel("");
 					map_label.setIcon(today.map);
 					map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
 					frame.getContentPane().add(map_label);
+								/****************BACKGROUND IMAGE******************/		
+			JLabel lblNewLabel = new JLabel("");
+			Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
+			lblNewLabel.setIcon(new ImageIcon(picture));
+			lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+			frame.getContentPane().add(lblNewLabel);  
 					
+				/*	JLabel lblNewLabel_2 = new JLabel();
+					lblNewLabel_2.setBounds(263, 136, 293, 160);
+					frame.getContentPane().add(lblNewLabel_2); */
 					
 				}
 			}
@@ -188,28 +199,27 @@ public class UI {
 			humidLabel.setText(""+today.get_humidity()+"%");
 			cloudLabel.setText(""+today.get_cloud());
 
-
-
-
 			JLabel map_label = new JLabel("");
 			map_label.setIcon(today.map);
 			map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
 			frame.getContentPane().add(map_label);
+
+						/****************BACKGROUND IMAGE******************/		
+						JLabel lblNewLabel = new JLabel("");
+						Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
+						lblNewLabel.setIcon(new ImageIcon(picture));
+						lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+						frame.getContentPane().add(lblNewLabel);  
             }
         });
 		/****************BACKGROUND IMAGE******************/		
-		// JLabel lblNewLabel = new JLabel("");
-		// Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
-		// lblNewLabel.setIcon(new ImageIcon(picture));
-		// lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-		// frame.getContentPane().add(lblNewLabel);  
+		/* JLabel lblNewLabel = new JLabel("");
+		 Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
+		 lblNewLabel.setIcon(new ImageIcon(picture));
+		 lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+		 frame.getContentPane().add(lblNewLabel);  */
 
-
-
-		  
-		
-		
-		
+			
 	}
 
 
