@@ -15,6 +15,7 @@ public class UI {
 	private JRadioButton celciusButton;
 	private JRadioButton fahreneitButton;
 	static JLabel celsius;
+	private boolean unit;	//if true, requests F 
 
     
     public static void frame() throws IOException {
@@ -39,7 +40,7 @@ public class UI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
+		
 		/***************WINDOW FRAME************************/
 		
 		frame = new JFrame();
@@ -64,13 +65,19 @@ public class UI {
 		
 		celciusButton = new JRadioButton("Celsius");
 		celciusButton.setForeground(new Color(230, 230, 250));
+		celciusButton.setOpaque(false);
+		celciusButton.setBackground(new Color(0, 0, 0));
 		celciusButton.setBounds(632, 273, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(celciusButton);	//ADDS RADIO BUTTON
 		
 		/***************FAHRENHEIT RADIO BUTTON***************/
 		
 		fahreneitButton = new JRadioButton("Fahrenheit ");
+		fahreneitButton.setSelected(true);
+		unit = true;
 		fahreneitButton.setForeground(new Color(230, 230, 250));
+		fahreneitButton.setOpaque(false);
+		fahreneitButton.setBackground(new Color(0, 0, 0));
 		fahreneitButton.setBounds(632, 308, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(fahreneitButton);	//ADDS RADIO BUTTON
 		
@@ -105,8 +112,10 @@ public class UI {
 		/****************CELSIUS ACTION LISTENER*****************/
 		celciusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				celciusButton.setSelected(true);
 				if (celciusButton.isSelected()) {
 					fahreneitButton.setSelected(false);
+					unit = false;
 					tempLabel.setText(""+(int)forecast.get_CelsiusTemp() + "°C");
 					
 				}
@@ -116,8 +125,10 @@ public class UI {
 		/****************FAHRENHEIT ACTION LISTENER*****************/
 		fahreneitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				fahreneitButton.setSelected(true);
 				if (fahreneitButton.isSelected()) {
 					celciusButton.setSelected(false);
+					unit = true;
 					tempLabel.setText(""+forecast.get_temp() + "°F");
 					
 				}
@@ -136,7 +147,12 @@ public class UI {
 		
 						e1.printStackTrace();
 					}
-					tempLabel.setText(""+forecast.get_temp() + "");
+					if(unit){
+						tempLabel.setText(""+forecast.get_temp()+ "°F");
+					}
+					else{
+						tempLabel.setText(""+(int)forecast.get_CelsiusTemp()+ "°C");
+					}
 					humidLabel.setText(""+forecast.get_humidity()+"%");
 					cloudLabel.setText(""+forecast.get_cloud());
 
@@ -154,8 +170,13 @@ public class UI {
             } catch (IOException e1) {
 
                 e1.printStackTrace();
-            }
-			tempLabel.setText(""+forecast.get_temp());
+			}
+			if(unit){
+				tempLabel.setText(""+forecast.get_temp()+ "°F");
+			}
+			else{
+				tempLabel.setText(""+(int)forecast.get_CelsiusTemp()+ "°C");
+			}
 			humidLabel.setText(""+forecast.get_humidity()+"%");
 			cloudLabel.setText(""+forecast.get_cloud());
                 }
