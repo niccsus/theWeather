@@ -6,12 +6,11 @@ public class Forecast {
     private JSONArray daily = new JSONArray();
     private double temp_day;
 
-    public Forecast(JSONObject json){
+    public Forecast(JSONObject json, int index){
         this.json = json;
         this.daily = (JSONArray) json.get("daily");
-        JSONObject currentObj = (JSONObject) daily.get(1);
+        JSONObject currentObj = (JSONObject) daily.get(index);
         this.temp_day = currentObj.getJSONObject("temp").getDouble("day");
-        System.out.println(temp_day);
     }
     
 }
