@@ -13,14 +13,12 @@ public class Geolocator {
     double lon;
     private String google_query;
     JSONObject google_json = new JSONObject();  //the JSON object that contains city co ordinates
-    ImageIcon map = new ImageIcon();
+    //ImageIcon map = new ImageIcon();
 
     public Geolocator(String google_query){
         this.google_query = google_query;
         set_google_json(google_query);
-        set_lat_lon();
-
-        
+        set_lat_lon();     
     }
 
     public void set_lat_lon(){

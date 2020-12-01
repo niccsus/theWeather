@@ -22,13 +22,14 @@ public class Fetch {
     JSONObject google_json = new JSONObject(); // the JSON object that contains city co ordinates
     ImageIcon map = new ImageIcon();
     String static_map_query;
+    Geolocator geolocator;
 
 
 
     // constructor in case user inputs string
     public Fetch(String city) throws IOException {
         this.google_query = "https://maps.googleapis.com/maps/api/geocode/json?address="+ city + "&key=" + google_key;
-        Geolocator geolocator = new Geolocator(google_query);
+        geolocator = new Geolocator(google_query);
         this.query = "https://api.openweathermap.org/data/2.5/onecall?lat="+ geolocator.lat + "&lon=" + geolocator.lon + "&units=imperial&appid=" + key;
         set_json(query);
         static_map_query = "https://maps.googleapis.com/maps/api/staticmap?center=" + geolocator.lat + "," + geolocator.lon + "&zoom=13&size=300x300&maptype=roadmap&key=" + google_key;
