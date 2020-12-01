@@ -62,7 +62,7 @@ public class UI {
 		JButton button = new JButton("Search");
 		button.setForeground(Color.BLACK);
 		button.setBackground(new Color(100, 149, 237)); //BUTTON COLOR
-		button.setBounds(362, 350, 102, 49);			//BUTTON PLACEMENT
+		button.setBounds(515, 348, 102, 23);			//BUTTON PLACEMENT
 		frame.getContentPane().add(button);				//ADDING BUTTTON
 		
 		/**************CELSIUS RADIO BUTTON******************/
@@ -70,7 +70,7 @@ public class UI {
 		celciusButton.setForeground(new Color(230, 230, 250));
 		celciusButton.setOpaque(false);
 		celciusButton.setBackground(new Color(0, 0, 0));
-		celciusButton.setBounds(653, 365, 141, 23);	//RADIO BUTTON PLACEMENT
+		celciusButton.setBounds(499, 122, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(celciusButton);	//ADDS RADIO BUTTON
 		
 		/***************FAHRENHEIT RADIO BUTTON***************/
@@ -80,34 +80,38 @@ public class UI {
 		fahreneitButton.setForeground(new Color(230, 230, 250));
 		fahreneitButton.setOpaque(false);
 		fahreneitButton.setBackground(new Color(0, 0, 0));
-		fahreneitButton.setBounds(653, 332, 141, 23);	//RADIO BUTTON PLACEMENT
+		fahreneitButton.setBounds(499, 87, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(fahreneitButton);	//ADDS RADIO BUTTON
 		
 		/***************TEXTFIELD AREA**********************/
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.CENTER);		//TEXT PLACEMENT
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 21));	//FONT
-		textField.setBounds(6, 351, 354, 43);							//TEXTFIELD PLACEMENT
+		textField.setBounds(166, 348, 354, 48);							//TEXTFIELD PLACEMENT
 		frame.getContentPane().add(textField);							//ADDS TEXTFIELD
 		textField.setColumns(10);
 		textField.setBackground(UIManager.getColor("Button.highlight"));
 		
 		/***************TEMPERATURE**********************/
 		tempLabel = new JLabel("");
-		tempLabel.setFont(new Font("Lucida Grande", Font.BOLD, 38));
-        tempLabel.setBounds(6, -60, 199, 177);	//first one is X axis, second one is Y axis, width is 3rd, height is 4th
+		tempLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		tempLabel.setForeground(Color.WHITE);
+		tempLabel.setFont(new Font("Lucida Grande", Font.BOLD, 57));
+        tempLabel.setBounds(230, 6, 340, 187);	//first one is X axis, second one is Y axis, width is 3rd, height is 4th
 		frame.getContentPane().add(tempLabel);
 
 		/***************HUMIDITY**********************/
 		humidLabel = new JLabel("");
 		humidLabel.setFont(new Font("Lucida Grande", Font.BOLD, 38));
         humidLabel.setBounds(6, -20, 199, 177);
-		frame.getContentPane().add(humidLabel);
+		//frame.getContentPane().add(humidLabel);
 		
 		/***************WEATHER TYPE**********************/
 		cloudLabel = new JLabel("");
+		cloudLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		cloudLabel.setForeground(Color.WHITE);
 		cloudLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-        cloudLabel.setBounds(6, 35, 199, 177);
+        cloudLabel.setBounds(330, 122, 102, 48);
 		frame.getContentPane().add(cloudLabel);
 
 		/**************COMBO BOX***************************/
@@ -116,15 +120,43 @@ public class UI {
 		comboBox.setBounds(650, 6, 152, 27);
 		frame.getContentPane().add(comboBox);// allows the saved cities to be acessed faster 
 
-		/***************TODAYS WEATHER AREA****************/
-		JLabel todayWeather = new JLabel();
-		todayWeather.setBounds(6, 10, 157, 145);
-		frame.getContentPane().add(todayWeather);
+		/***
+		 * WEATHER INFO
+		 */
+		JLabel infoLabels = new JLabel("New label");
+		infoLabels.setForeground(Color.WHITE);
+		infoLabels.setHorizontalAlignment(SwingConstants.CENTER);
+		infoLabels.setBounds(652, 74, 118, 27);
+		frame.getContentPane().add(infoLabels);
+		
+		JLabel lblNewLabel_4_1 = new JLabel("New label");
+		lblNewLabel_4_1.setForeground(Color.WHITE);
+		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_1.setBounds(652, 102, 118, 27);
+		frame.getContentPane().add(lblNewLabel_4_1);
+		
+		JLabel lblNewLabel_4_1_1 = new JLabel("New label");
+		lblNewLabel_4_1_1.setForeground(Color.WHITE);
+		lblNewLabel_4_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_1_1.setBounds(652, 133, 118, 27);
+		frame.getContentPane().add(lblNewLabel_4_1_1);
+		
+		JLabel lblNewLabel_4_1_2 = new JLabel("New label");
+		lblNewLabel_4_1_2.setForeground(Color.WHITE);
+		lblNewLabel_4_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_1_2.setBounds(652, 159, 118, 27);
+		frame.getContentPane().add(lblNewLabel_4_1_2);
+		
+		JLabel lblNewLabel_4_1_3 = new JLabel("New label");
+		lblNewLabel_4_1_3.setForeground(Color.WHITE);
+		lblNewLabel_4_1_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_1_3.setBounds(652, 187, 118, 27);
+		frame.getContentPane().add(lblNewLabel_4_1_3);
 
-		/*************MAP LABEL************************* */
-		JLabel mapLabel = new JLabel();
-		mapLabel.setBounds(228, 10, 319, 177);
-		frame.getContentPane().add(mapLabel);
+		/***
+		 * 
+		 */
+
 
 		/*************DAY 1************************* */
 		JLabel day1 = new JLabel("day1");
@@ -163,7 +195,7 @@ public class UI {
 		
 		/*************FAVORITE CITY BUTTON************************* */
 		JButton saveCity = new JButton("Favorite");
-		saveCity.setBounds(467, 350, 102, 49);
+		saveCity.setBounds(515, 371, 102, 23);
 		frame.getContentPane().add(saveCity);		
 
 
@@ -227,8 +259,13 @@ public class UI {
 	/****************BACKGROUND IMAGE******************/
 	public static void set_Background_Image(JFrame frame){
 		lblNewLabel.setText("");		
+<<<<<<< HEAD
 		Image picture = new ImageIcon("weather/picture/thunder.jpg").getImage();	//SETS IMAGE
 		//Image picture = new ImageIcon("https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80").getImage();
+=======
+		//Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
+		Image picture = new ImageIcon("weather/picture/moon.png").getImage();
+>>>>>>> ccc898e2a3fbe5f2ef40d5ef161bf111e0ad4b20
 		lblNewLabel.setIcon(new ImageIcon(picture));
 		lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
 		frame.getContentPane().add(lblNewLabel); 
@@ -238,14 +275,14 @@ public class UI {
 	}
 	public static void set_icon(JFrame frame){
 		icon.setIcon(today.get_icon());
-		icon.setBounds(0, -30, 800, 405); //IMAGE PLACEMENT
+		icon.setBounds(413, 129, 110, 35); //IMAGE PLACEMENT
 		frame.getContentPane().add(icon);
 	}
 	/****************STATIC MAP******************/
 	public static void set_map(JFrame frame){
-		
+		map_label.setHorizontalAlignment(SwingConstants.CENTER);
 		map_label.setIcon(today.map);
-		map_label.setBounds(228, 10, 319, 177); //IMAGE PLACEMENT
+		map_label.setBounds(7, 6, 209, 187); //IMAGE PLACEMENT
 		frame.getContentPane().add(map_label);
 	}
 
