@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import javax.swing.plaf.basic.BasicTextFieldUI;  
 
 public class UI {
 
@@ -15,7 +16,9 @@ public class UI {
 	private JRadioButton celciusButton;
 	private JRadioButton fahreneitButton;
 	static JLabel celsius;
-	private boolean unit;	//if true, requests F 
+	private boolean unit;	//if true, requests F
+	static JLabel lblNewLabel = new JLabel(""); 
+	static JLabel map_label = new JLabel("");
 
     
     public static void frame() throws IOException {
@@ -34,6 +37,7 @@ public class UI {
 
     public UI() {
 		initialize();
+		
 	}
 
 	/**
@@ -42,7 +46,6 @@ public class UI {
 	private void initialize() {
 		
 		/***************WINDOW FRAME************************/
-		
 		frame = new JFrame();
 		frame.setTitle("The Weather");
 		frame.setBackground(Color.BLACK);
@@ -54,7 +57,6 @@ public class UI {
 		
 		
 		/***************SEARCH BUTTON**********************/
-		
 		JButton button = new JButton("Search");
 		button.setForeground(new Color(47, 79, 79));
 		button.setBackground(new Color(100, 149, 237)); //BUTTON COLOR
@@ -62,7 +64,6 @@ public class UI {
 		frame.getContentPane().add(button);				//ADDING BUTTTON
 		
 		/**************CELSIUS RADIO BUTTON******************/
-		
 		celciusButton = new JRadioButton("Celsius");
 		celciusButton.setForeground(new Color(230, 230, 250));
 		celciusButton.setOpaque(false);
@@ -71,7 +72,6 @@ public class UI {
 		frame.getContentPane().add(celciusButton);	//ADDS RADIO BUTTON
 		
 		/***************FAHRENHEIT RADIO BUTTON***************/
-		
 		fahreneitButton = new JRadioButton("Fahrenheit ");
 		fahreneitButton.setSelected(true);
 		unit = true;
@@ -88,7 +88,7 @@ public class UI {
 		textField.setBounds(106, 342, 514, 45);							//TEXTFIELD PLACEMENT
 		frame.getContentPane().add(textField);							//ADDS TEXTFIELD
 		textField.setColumns(10);
-        textField.setBackground(UIManager.getColor("Button.highlight"));
+		textField.setBackground(UIManager.getColor("Button.highlight"));
 		
 		/***************TEMPERATURE**********************/
 		tempLabel = new JLabel("");
@@ -107,6 +107,12 @@ public class UI {
 		cloudLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
         cloudLabel.setBounds(350, 100, 141, 61);
 		frame.getContentPane().add(cloudLabel);
+
+		/**************COMBO BOX***************************/
+		String[] boxOptions = {};
+		JComboBox<String> comboBox = new JComboBox<>(boxOptions);
+		comboBox.setBounds(650, 6, 152, 27);
+		frame.getContentPane().add(comboBox);// allows the saved cities to be acessed faster 
 
 		/****************CELSIUS ACTION LISTENER*****************/
 		celciusButton.addActionListener(new ActionListener() {
@@ -133,12 +139,13 @@ public class UI {
 				}
 			}
 		});
+		   
+		set_Background_Image(frame);
 		
 		/****************TEXTFIELD (PRESS ENTER) ACTION LISTENER******************/
 		textField.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					//textField.setText(textField.getText());
 					String input = textField.getText();
 					try {
 						today = new Today(input);
@@ -154,13 +161,10 @@ public class UI {
 					}
 					humidLabel.setText(""+today.get_humidity()+"%");
 					cloudLabel.setText(""+today.get_cloud());
-					
 
-					JLabel map_label = new JLabel("");
-					map_label.setIcon(today.map);
-					map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-					frame.getContentPane().add(map_label);
-					
+
+					set_map(frame);
+					set_Background_Image(frame);
 					
 				}
 			}
@@ -185,33 +189,32 @@ public class UI {
 			humidLabel.setText(""+today.get_humidity()+"%");
 			cloudLabel.setText(""+today.get_cloud());
 
-
-
-
-			JLabel map_label = new JLabel("");
-			map_label.setIcon(today.map);
-			map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-			frame.getContentPane().add(map_label);
+			set_map(frame);
+			set_Background_Image(frame);			 
             }
         });
-		/****************BACKGROUND IMAGE******************/		
-		// JLabel lblNewLabel = new JLabel("");
-		// Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
-		// lblNewLabel.setIcon(new ImageIcon(picture));
-		// lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
-		// frame.getContentPane().add(lblNewLabel);  
-
-
-
-		  
 		
+
+			
+	}
+	/****************BACKGROUND IMAGE******************/
+	public static void set_Background_Image(JFrame frame){
+		lblNewLabel.setText("");		
+		Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
+		lblNewLabel.setIcon(new ImageIcon(picture));
+		lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+		frame.getContentPane().add(lblNewLabel); 
+	}
+	/****************STATIC MAP******************/
+	public static void set_map(JFrame frame){
 		
-		
+		map_label.setIcon(today.map);
+		map_label.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
+		frame.getContentPane().add(map_label);
 	}
 
 
-
-
+	
 
 
 }

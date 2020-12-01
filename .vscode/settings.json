@@ -5,6 +5,10 @@
     //Make sure the path on your machine is correct
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
+<<<<<<< HEAD
         "/Users/harpreetpadda/Desktop/json-20201115 (1).jar"
+=======
+        "weather/json-20201115.jar"
+>>>>>>> aff3afb4bdd6ecab9a345ad435c86fe68a0116f9
     ]
 }
