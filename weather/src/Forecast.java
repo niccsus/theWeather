@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,10 +16,14 @@ public class Forecast {
     private JSONObject json;
     private JSONArray daily;    
     private double temp_day,temp_night,feel_day,feel_night,windspeed,temp_min,temp_max,temp_eve,temp_morn,feel_eve,feel_morn;
-    private int sunrise_dt,sunset_dt,cloudPercentage,humid,pressure;
-    private String timezone,sunrise,sunset;
+    private int sunrise_dt,sunset_dt,cloudPercentage,humid,pressure,dt;
+    private String timezone,sunrise,sunset,day_of_week;
     private String icon_url = "";
     ImageIcon icon = new ImageIcon();
+    JLabel week_day_label;
+    JLabel icon_label = new JLabel("");
+    JLabel temp_min_label = new JLabel("");
+    JLabel temp_max_label = new JLabel("");
  
     public Forecast(JSONObject json, int day) throws IOException{
         this.json = json;
@@ -46,6 +51,7 @@ public class Forecast {
         this.sunset_dt = currentObj.getInt("sunset");      //get sunset time
         this.humid = currentObj.getInt("humidity");        //get humidty
         this.pressure = currentObj.getInt("pressure");  //get pressure
+        this.dt = currentObj.getInt("dt");
 
         JSONArray cloud_condition = (JSONArray) currentObj.get("weather");        //create json array from weather
         JSONObject icon_object = (JSONObject) cloud_condition.get(0); 
@@ -56,6 +62,10 @@ public class Forecast {
         
         this.sunrise = unix_timestamp_convertor(sunrise_dt);    //set sunrise date/time
         this.sunset = unix_timestamp_convertor(sunset_dt);      //set sunset date/time
+        day_of_week_calculator();
+        this.week_day_label = new JLabel(this.day_of_week);
+        //this.temp_min_label = new JLabel("");//new JLabel("Min: " + this.temp_min);
+        //this.temp_max_label = new JLabel("");//new JLabel("Max: " + this.temp_max);
         
 
 
@@ -72,6 +82,37 @@ public class Forecast {
          jdf.setTimeZone(TimeZone.getTimeZone(timezone));
          String java_date = jdf.format(date);
          return java_date;
+         
+    }
+
+    private void day_of_week_calculator(){
+        int day_num = (int) (Math.floor(this.dt/86400)+4)%7;
+        switch(day_num){
+            case 0: this.day_of_week = "Monday";
+            break;
+
+            case 1: this.day_of_week = "Tuesday";
+            break;
+
+            case 2: this.day_of_week = "Wednesday";
+            break;
+
+            case 3: this.day_of_week = "Thursday";
+            break;
+
+            case 4: this.day_of_week = "Friday";
+            break;
+
+            case 5: this.day_of_week = "Saturday";
+            break;
+
+            case 6: this.day_of_week = "Sunday";
+            break;
+
+            default: this.day_of_week = "INVALID";
+            break;
+        }
+        //System.out.println(this.day_of_week);
     }
 
     public double getTemp_day() {
@@ -153,4 +194,26 @@ public class Forecast {
     public String get_sunrise(){
         return sunrise;
     }
+
+    public String get_day_of_week(){
+        return day_of_week;
+    }
+
+    public JLabel get_day_label(){
+        return week_day_label;
+    }
+
+    public JLabel get_icon_label(){
+        return icon_label;
+    }
+
+    public JLabel get_temp_min_label(){
+        return temp_min_label;
+    }
+
+    public JLabel get_temp_max_label(){
+        return temp_max_label;
+    }
+
+    
 }

@@ -78,7 +78,7 @@ public class Today {
             // System.out.println("Minute: " + c.get(Calendar.MINUTE));
             // System.out.println("Second: " + c.get(Calendar.SECOND));
             this.time = c.get(Calendar.HOUR_OF_DAY);
-            System.out.println(time);
+            //System.out.println(time);
         }
         catch (Throwable t) {
             // test
