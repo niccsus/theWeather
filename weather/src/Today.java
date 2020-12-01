@@ -12,8 +12,8 @@ import java.text.*;
 public class Today {
     JSONObject json = new JSONObject();
     private JSONObject current = new JSONObject();
-    private int feel,temp,humidity,pressure,cloud_percent,wind_speed,wind_deg,dt;
-    private String cloud,timezone,date;
+    private int feel,temp,humidity,pressure,cloud_percent,wind_speed,wind_deg,dt,time;
+    private String cloud,timezone,date,icon_id;
     ImageIcon map = new ImageIcon();
     private String icon_url = "";
     ImageIcon icon = new ImageIcon();
@@ -32,8 +32,9 @@ public class Today {
         this.cloud_percent = current.getInt("clouds");  //get cloud condition
         JSONArray cloud_condition = (JSONArray) current.get("weather");        //create json array from weather
         JSONObject currentObj = (JSONObject) cloud_condition.get(0);        //create json obect from json array
-        this.cloud = (String) currentObj.get("description");                //get cloud description from json
-        this.icon_url = "http://openweathermap.org/img/w/" + currentObj.get("icon") + ".png";   //get icon url from api
+        this.cloud = (String) currentObj.get("description");    //get cloud description from json
+        this.icon_id = (String) currentObj.get("icon"); 
+        this.icon_url = "http://openweathermap.org/img/w/" + icon_id + ".png";   //get icon url from api
         this.dt = current.getInt("dt");     //gets unix timestamp
         this.timezone = (String) json.get("timezone");  //get search location timezone
         unix_timestamp_convertor();
@@ -61,6 +62,31 @@ public class Today {
         jdf.setTimeZone(TimeZone.getTimeZone(timezone));
         String java_date = jdf.format(date);
         this.date = java_date;
+
+
+
+
+        String dateTime = java_date;
+        Calendar c = Calendar.getInstance();
+        try {
+            Date d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateTime);
+            c.setTime(d);
+            // System.out.println("Year: " + c.get(Calendar.YEAR));
+            // System.out.println("Month: " + c.get(Calendar.MONTH));
+            // System.out.println("Day in month: " + c.get(Calendar.DAY_OF_MONTH));
+            // System.out.println("Hour: " + c.get(Calendar.HOUR_OF_DAY));
+            // System.out.println("Minute: " + c.get(Calendar.MINUTE));
+            // System.out.println("Second: " + c.get(Calendar.SECOND));
+            this.time = c.get(Calendar.HOUR_OF_DAY);
+            System.out.println(time);
+        }
+        catch (Throwable t) {
+            // test
+            t.printStackTrace();
+        }
+
+
+        //System.out.println(time);
     }
     //return temp
     public int get_temp(){
@@ -109,6 +135,14 @@ public class Today {
     //return date
     public String get_date(){
         return date;
+    }
+
+    public int get_time(){
+        return time;
+    }
+
+    public String get_icon_id(){
+        return icon_id;
     }
 
 }
