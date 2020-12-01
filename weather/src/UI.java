@@ -227,8 +227,8 @@ public class UI {
 	/****************BACKGROUND IMAGE******************/
 	public static void set_Background_Image(JFrame frame){
 		lblNewLabel.setText("");		
-		//Image picture = new ImageIcon("weather/picture/night.gif").getImage();	//SETS IMAGE
-		Image picture = new ImageIcon("https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80").getImage();
+		Image picture = new ImageIcon("weather/picture/thunder.jpg").getImage();	//SETS IMAGE
+		//Image picture = new ImageIcon("https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80").getImage();
 		lblNewLabel.setIcon(new ImageIcon(picture));
 		lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
 		frame.getContentPane().add(lblNewLabel); 
