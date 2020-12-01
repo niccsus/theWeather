@@ -59,9 +59,9 @@ public class UI {
 		
 		/***************SEARCH BUTTON**********************/
 		JButton button = new JButton("Search");
-		button.setForeground(new Color(47, 79, 79));
+		button.setForeground(Color.BLACK);
 		button.setBackground(new Color(100, 149, 237)); //BUTTON COLOR
-		button.setBounds(632, 337, 117, 50);			//BUTTON PLACEMENT
+		button.setBounds(362, 350, 102, 49);			//BUTTON PLACEMENT
 		frame.getContentPane().add(button);				//ADDING BUTTTON
 		
 		/**************CELSIUS RADIO BUTTON******************/
@@ -69,7 +69,7 @@ public class UI {
 		celciusButton.setForeground(new Color(230, 230, 250));
 		celciusButton.setOpaque(false);
 		celciusButton.setBackground(new Color(0, 0, 0));
-		celciusButton.setBounds(632, 273, 141, 23);	//RADIO BUTTON PLACEMENT
+		celciusButton.setBounds(653, 365, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(celciusButton);	//ADDS RADIO BUTTON
 		
 		/***************FAHRENHEIT RADIO BUTTON***************/
@@ -79,14 +79,14 @@ public class UI {
 		fahreneitButton.setForeground(new Color(230, 230, 250));
 		fahreneitButton.setOpaque(false);
 		fahreneitButton.setBackground(new Color(0, 0, 0));
-		fahreneitButton.setBounds(632, 308, 141, 23);	//RADIO BUTTON PLACEMENT
+		fahreneitButton.setBounds(653, 332, 141, 23);	//RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(fahreneitButton);	//ADDS RADIO BUTTON
 		
 		/***************TEXTFIELD AREA**********************/
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.CENTER);		//TEXT PLACEMENT
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 21));	//FONT
-		textField.setBounds(106, 342, 514, 45);							//TEXTFIELD PLACEMENT
+		textField.setBounds(6, 351, 354, 43);							//TEXTFIELD PLACEMENT
 		frame.getContentPane().add(textField);							//ADDS TEXTFIELD
 		textField.setColumns(10);
 		textField.setBackground(UIManager.getColor("Button.highlight"));
@@ -114,6 +114,60 @@ public class UI {
 		JComboBox<String> comboBox = new JComboBox<>(boxOptions);
 		comboBox.setBounds(650, 6, 152, 27);
 		frame.getContentPane().add(comboBox);
+
+		/***************TODAYS WEATHER AREA****************/
+		JLabel todayWeather = new JLabel();
+		todayWeather.setBounds(6, 10, 157, 145);
+		frame.getContentPane().add(todayWeather);
+
+		/*************MAP LABEL************************* */
+		JLabel mapLabel = new JLabel();
+		mapLabel.setBounds(228, 10, 319, 177);
+		frame.getContentPane().add(mapLabel);
+
+		/*************DAY 1************************* */
+		JLabel day1 = new JLabel("day1");
+		day1.setBounds(47, 205, 85, 128);
+		frame.getContentPane().add(day1);
+		
+		/*************DAY 2************************* */
+		JLabel day2 = new JLabel("day2");
+		day2.setBounds(144, 205, 85, 128);
+		frame.getContentPane().add(day2);
+		
+		/*************DAY 3************************* */
+		JLabel day3 = new JLabel("day3");
+		day3.setBounds(241, 205, 85, 128);
+		frame.getContentPane().add(day3);
+		
+		/*************DAY 4************************* */
+		JLabel day4 = new JLabel("day4");
+		day4.setBounds(338, 205, 85, 128);
+		frame.getContentPane().add(day4);
+		
+		/*************DAY 5************************* */
+		JLabel day5 = new JLabel("day5");
+		day5.setBounds(435, 205, 85, 128);
+		frame.getContentPane().add(day5);
+		
+		/*************DAY 6************************* */
+		JLabel day6 = new JLabel("day6");
+		day6.setBounds(532, 205, 85, 128);
+		frame.getContentPane().add(day6);
+		
+		/*************DAY 7************************* */
+		JLabel day7 = new JLabel("day7");
+		day7.setBounds(640, 205, 85, 128);
+		frame.getContentPane().add(day7);
+		
+		/*************FAVORITE CITY BUTTON************************* */
+		JButton saveCity = new JButton("Favorite");
+		saveCity.setBounds(467, 350, 102, 49);
+		frame.getContentPane().add(saveCity);		
+
+
+
+
 
 		/****************CELSIUS ACTION LISTENER*****************/
 		celciusButton.addActionListener(new ActionListener() {
@@ -206,6 +260,9 @@ public class UI {
 		lblNewLabel.setIcon(new ImageIcon(picture));
 		lblNewLabel.setBounds(0, 0, 800, 405); //IMAGE PLACEMENT
 		frame.getContentPane().add(lblNewLabel); 
+
+
+	/****************ICONS***********************/	
 	}
 	public static void set_icon(JFrame frame){
 		icon.setIcon(today.get_icon());
