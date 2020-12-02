@@ -16,11 +16,15 @@ public class UI {
 	private JRadioButton celciusButton;
 	private JRadioButton fahreneitButton;
 	static JLabel celsius;
-	static boolean unit;	//if true, requests F
+	//static boolean unit;	//if true, requests F
 	static JLabel lblNewLabel = new JLabel(""); 
 	static JLabel map_label = new JLabel("");
 	static JLabel icon = new JLabel("");
 	static Forecast[] forecast = new Forecast[8];
+	static JLabel[] forecast_day_labels = new JLabel[8];
+	static JLabel[] forecast_min_labels = new JLabel[8];
+	static JLabel[] forecast_max_labels = new JLabel[8];
+	static JLabel[] forecast_icon_labels = new JLabel[8];
 
 	static String img = "";
 	Color text_color = Color.WHITE;
@@ -39,16 +43,19 @@ public class UI {
 		});
 	}
 
-	public UI() {
+	public UI() throws IOException {
 		initialize();
 
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * 
+	 * @throws IOException
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 
+		
 		/*************** WINDOW FRAME ************************/
 		frame = new JFrame();
 		frame.setTitle("The Weather");
@@ -73,19 +80,21 @@ public class UI {
 		celciusButton.setBackground(new Color(0, 0, 0));
 		celciusButton.setBounds(499, 122, 141, 23); // RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(celciusButton); // ADDS RADIO BUTTON
+		celciusButton.setVisible(false);
 
 		/*************** FAHRENHEIT RADIO BUTTON ***************/
 		fahreneitButton = new JRadioButton("Fahrenheit ");
 		fahreneitButton.setSelected(true);
-		unit = true;
+		//unit = true;
 		fahreneitButton.setForeground(new Color(230, 230, 250));
 		fahreneitButton.setOpaque(false);
 		fahreneitButton.setBackground(new Color(0, 0, 0));
 		fahreneitButton.setBounds(499, 87, 141, 23); // RADIO BUTTON PLACEMENT
 		frame.getContentPane().add(fahreneitButton); // ADDS RADIO BUTTON
+		fahreneitButton.setVisible(false);
 
 		/*************** TEXTFIELD AREA **********************/
-		textField = new JTextField("Roseville");
+		textField = new JTextField("");
 		textField.setHorizontalAlignment(SwingConstants.CENTER); // TEXT PLACEMENT
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 21)); // FONT
 		textField.setBounds(166, 348, 354, 48); // TEXTFIELD PLACEMENT
@@ -164,7 +173,7 @@ public class UI {
 		frame.getContentPane().add(saveCity);
 
 		/*************START APP WITH CITY POPULATED************************* */
-		search_button_action("Roseville", frame);
+
 
 
 		/**************** CELSIUS ACTION LISTENER *****************/
@@ -173,12 +182,12 @@ public class UI {
 				celciusButton.setSelected(true);
 				if (celciusButton.isSelected()) {
 					fahreneitButton.setSelected(false);
-					unit = false;
+					//unit = false;
 					tempLabel.setText("" + (int) today.get_CelsiusTemp() + "°C");
-					// for(int i=0; i<8; i++){
-					// 	forecast[i].get_temp_min_label().setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
-					// 	forecast[i].get_temp_max_label().setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
-					// }
+					for(int i=0; i<8; i++){
+						forecast_min_labels[i].setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
+						forecast_max_labels[i].setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
+					}
 				}
 			}
 		});
@@ -189,12 +198,12 @@ public class UI {
 				fahreneitButton.setSelected(true);
 				if (fahreneitButton.isSelected()) {
 					celciusButton.setSelected(false);
-					unit = true;
+					//unit = true;
 					tempLabel.setText("" + today.get_temp() + "°F");
-					// for(int i=0; i<8; i++){
-					// 	forecast[i].get_temp_min_label().setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
-					// 	forecast[i].get_temp_max_label().setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
-					// }
+					for(int i=0; i<8; i++){
+						forecast_min_labels[i].setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
+						forecast_max_labels[i].setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
+					}
 				}
 			}
 		});
@@ -223,17 +232,24 @@ public class UI {
 				set_Background_Image(frame);
 			}
 		});
+		initial_set_background_image(frame);
+		// today = new Today("Roseville");
+		// get_forecast();
+		set_forecast_days(frame);
+		// set_icon(frame);
+		// set_map(frame);
+		// set_Background_Image(frame);
 
 	}
 
-	// /**************** INITIAL BACKGROUND IMAGE ******************/
-	// public static void initial_set_background_image(JFrame frame) {
-	// 	lblNewLabel.setText("");
-	// 	Image picture = new ImageIcon("weather/picture/cloud.jpg").getImage();
-	// 	lblNewLabel.setIcon(new ImageIcon(picture));
-	// 	lblNewLabel.setBounds(0, 0, 800, 405); // IMAGE PLACEMENT
-	// 	frame.getContentPane().add(lblNewLabel);
-	// }
+	/**************** INITIAL BACKGROUND IMAGE ******************/
+	public static void initial_set_background_image(JFrame frame) {
+		lblNewLabel.setText("");
+		Image picture = new ImageIcon("weather/picture/cloud.jpg").getImage();
+		lblNewLabel.setIcon(new ImageIcon(picture));
+		lblNewLabel.setBounds(0, 0, 800, 405); // IMAGE PLACEMENT
+		frame.getContentPane().add(lblNewLabel);
+	}
 
 	/**************** BACKGROUND IMAGE ******************/
 	public static void set_Background_Image(JFrame frame) {
@@ -258,8 +274,7 @@ public class UI {
 		lblNewLabel.setIcon(new ImageIcon(picture));
 		lblNewLabel.setBounds(0, 0, 800, 405); // IMAGE PLACEMENT
 		frame.getContentPane().add(lblNewLabel);
-
-		
+	
 	}
 	/**************** ICONS ***********************/
 	public static void set_icon(JFrame frame) {
@@ -281,39 +296,40 @@ public class UI {
 		try {
 			today = new Today(input);
 			get_forecast();
-			
+			set_icon(frame);
+			set_map(frame);
+			set_Background_Image(frame);
+			fahreneitButton.setVisible(true);
+			celciusButton.setVisible(true);
 		} catch (IOException e1) {
 
 			e1.printStackTrace();
 		}
-		for(int i=0; i<8; i++){
-			forecast[i].get_temp_min_label().setText("");
-			forecast[i].get_temp_max_label().setText("");
-		}
-		if (UI.unit) {
+		if (fahreneitButton.isSelected()) {
 			tempLabel.setText("" + today.get_temp() + "°F");
-			// for(int i=0; i<8; i++){
-			// 	forecast[i].get_temp_min_label().setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
-			// 	forecast[i].get_temp_max_label().setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
-			// 	//System.out.println("TEST 1");
-			// } 
+			for(int i=0; i<8; i++){
+				forecast_day_labels[i].setText(forecast[i].get_day_of_week());
+				forecast_min_labels[i].setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
+				forecast_max_labels[i].setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
+				forecast_icon_labels[i].setIcon(forecast[i].get_icon());
+				//System.out.println("TEST 1");
+			} 
 		} else {
 			tempLabel.setText("" + (int) today.get_CelsiusTemp() + "°C");
-			// for(int i=0; i<8; i++){
-			// 	forecast[i].get_temp_min_label().setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
-			// 	forecast[i].get_temp_max_label().setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
-			// 	//System.out.println("TEST 2");
-			// }
+			for(int i=0; i<8; i++){
+				forecast_day_labels[i].setText(forecast[i].get_day_of_week());
+				forecast_min_labels[i].setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
+				forecast_max_labels[i].setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
+				forecast_icon_labels[i].setIcon(forecast[i].get_icon());
+				//System.out.println("TEST 2");
+			}
 		}
 		
 		humidLabel.setText("" + today.get_humidity() + "%");
 		cloudLabel.setText("" + today.get_cloud());
 		// cloudLabel.setText("" + forecast[7].getTemp_day());
 
-		set_forecast_days(frame);
-		set_icon(frame);
-		set_map(frame);
-		set_Background_Image(frame);
+		
 	}
 
 	public static void get_forecast() {
@@ -330,24 +346,27 @@ public class UI {
 	public static void set_forecast_days(JFrame frame) {
 		int[] x = {47,144,241,338,435,532,640};
 		for(int i=0; i<7; i++){
-			forecast[i].get_day_label().setBounds(x[i], 205, 85, 128);	//Weekday placement
-			forecast[i].get_day_label().setForeground(Color.GREEN);
-			frame.getContentPane().add(forecast[i].get_day_label());
+			forecast_day_labels[i] = new JLabel("");
+			forecast_day_labels[i].setBounds(x[i], 205, 85, 128);	//Weekday placement
+			forecast_day_labels[i].setForeground(Color.GREEN);
+			frame.getContentPane().add(forecast_day_labels[i]);
 
-			forecast[i].get_icon_label().setIcon(forecast[i].get_icon());	//Icon placemnt
-			forecast[i].get_icon_label().setBounds(x[i], 180, 85, 128); 
-			frame.getContentPane().add(forecast[i].get_icon_label());
+			forecast_icon_labels[i] = new JLabel("");
+			// forecast_icon_labels[i].setIcon(forecast[i].get_icon());	//Icon placemnt
+			forecast_icon_labels[i].setBounds(x[i], 180, 85, 128); 
+			frame.getContentPane().add(forecast_icon_labels[i]);
 
-			forecast[i].get_temp_min_label().setBounds(x[i], 230, 85, 128);	//Min temp placement
-			forecast[i].get_temp_min_label().setForeground(Color.YELLOW);
-			frame.getContentPane().add(forecast[i].get_temp_min_label());
+			forecast_min_labels[i] = new JLabel("");
+			forecast_min_labels[i].setBounds(x[i], 230, 85, 128);	//Min temp placement
+			forecast_min_labels[i].setForeground(Color.YELLOW);
+			frame.getContentPane().add(forecast_min_labels[i]);
 			
-			forecast[i].get_temp_max_label().setBounds(x[i], 250, 85, 128);	//Max temp placement
-			forecast[i].get_temp_max_label().setForeground(Color.RED);
-			frame.getContentPane().add(forecast[i].get_temp_max_label());
+			forecast_max_labels[i] = new JLabel("");
+			forecast_max_labels[i].setBounds(x[i], 250, 85, 128);	//Max temp placement
+			forecast_max_labels[i].setForeground(Color.RED);
+			frame.getContentPane().add(forecast_max_labels[i]);
 
-			
-			
+
 		}
 		
 	}
