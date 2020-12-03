@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+<<<<<<< HEAD
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="15" project-jdk-type="JavaSDK">
+>>>>>>> remotes/origin/Foad
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="false" project-jdk-name="14" project-jdk-type="JavaSDK">
+>>>>>>> 212e56619216ea39541a4e3cdf2c192685e5bae6
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
