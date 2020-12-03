@@ -17,10 +17,13 @@ public class Today {
     ImageIcon map = new ImageIcon();
     private String icon_url = "";
     ImageIcon icon = new ImageIcon();
+    ImageIcon weather_map = new ImageIcon();
+    ImageIcon composite = new ImageIcon();
     
 
 
     public Today(String user_input) throws IOException {
+        user_input=user_input.replaceAll(" ","+");
         this.json = set_json(user_input);
         this.current = this.json.getJSONObject("current");
         this.feel = current.getInt("feels_like");   //get feels like temp from json
@@ -38,9 +41,12 @@ public class Today {
         this.dt = current.getInt("dt");     //gets unix timestamp
         this.timezone = (String) json.get("timezone");  //get search location timezone
         unix_timestamp_convertor();
+
         URL url = new URL(icon_url);
         BufferedImage img = ImageIO.read(url);       
         icon = new ImageIcon(img);  //icon for current weather
+
+        
 
     }
 
@@ -49,6 +55,8 @@ public class Today {
     private JSONObject set_json(String user_input) throws IOException{
         Fetch fetch = new Fetch(user_input);
         this.map = fetch.map;
+        this.weather_map = fetch.weather_map;
+        this.composite = fetch.composite;
         return fetch.json;
     }
     //decode unix timestamp into time format based on search location's timezone

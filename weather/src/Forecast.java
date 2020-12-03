@@ -24,6 +24,10 @@ public class Forecast {
     JLabel icon_label = new JLabel("");
     JLabel temp_min_label = new JLabel("");
     JLabel temp_max_label = new JLabel("");
+
+    public Forecast(){
+        
+    }
  
     public Forecast(JSONObject json, int day) throws IOException{
         this.json = json;

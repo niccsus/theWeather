@@ -19,6 +19,8 @@ public class UI {
 	//static boolean unit;	//if true, requests F
 	static JLabel lblNewLabel = new JLabel(""); 
 	static JLabel map_label = new JLabel("");
+	static JLabel weather_map_label = new JLabel("");
+	static JLabel composite_map_label = new JLabel("");
 	static JLabel icon = new JLabel("");
 	static Forecast[] forecast = new Forecast[8];
 	static JLabel[] forecast_day_labels = new JLabel[8];
@@ -45,7 +47,6 @@ public class UI {
 
 	public UI() throws IOException {
 		initialize();
-
 	}
 
 	/**
@@ -54,7 +55,9 @@ public class UI {
 	 * @throws IOException
 	 */
 	private void initialize() throws IOException {
-
+		for(int i=0; i<8; i++){
+			forecast[i] = new Forecast();
+		}
 		
 		/*************** WINDOW FRAME ************************/
 		frame = new JFrame();
@@ -65,7 +68,8 @@ public class UI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-
+		set_forecast_days(frame);
+		
 		/*************** SEARCH BUTTON **********************/
 		JButton button = new JButton("Search");
 		button.setForeground(Color.BLACK);
@@ -129,7 +133,7 @@ public class UI {
 		JComboBox<String> comboBox = new JComboBox<>(boxOptions);
 		comboBox.setBounds(650, 6, 152, 27);
 		frame.getContentPane().add(comboBox);// allows the saved cities to be acessed faster
-
+		
 		/***
 		 * WEATHER INFO
 		 */
@@ -172,9 +176,6 @@ public class UI {
 		saveCity.setBounds(515, 371, 102, 23);
 		frame.getContentPane().add(saveCity);
 
-		/*************START APP WITH CITY POPULATED************************* */
-
-
 
 		/**************** CELSIUS ACTION LISTENER *****************/
 		celciusButton.addActionListener(new ActionListener() {
@@ -184,7 +185,7 @@ public class UI {
 					fahreneitButton.setSelected(false);
 					//unit = false;
 					tempLabel.setText("" + (int) today.get_CelsiusTemp() + "°C");
-					for(int i=0; i<8; i++){
+					for(int i=0; i<7; i++){
 						forecast_min_labels[i].setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
 						forecast_max_labels[i].setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
 					}
@@ -200,14 +201,14 @@ public class UI {
 					celciusButton.setSelected(false);
 					//unit = true;
 					tempLabel.setText("" + today.get_temp() + "°F");
-					for(int i=0; i<8; i++){
+					for(int i=0; i<7; i++){
 						forecast_min_labels[i].setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
 						forecast_max_labels[i].setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
 					}
 				}
 			}
 		});
-
+		
 		//initial_set_background_image(frame);
 
 		/**************** TEXTFIELD (PRESS ENTER) ACTION LISTENER ******************/
@@ -274,8 +275,11 @@ public class UI {
 		lblNewLabel.setIcon(new ImageIcon(picture));
 		lblNewLabel.setBounds(0, 0, 800, 405); // IMAGE PLACEMENT
 		frame.getContentPane().add(lblNewLabel);
+
+		
 	
 	}
+	
 	/**************** ICONS ***********************/
 	public static void set_icon(JFrame frame) {
 		icon.setIcon(today.get_icon());
@@ -287,9 +291,29 @@ public class UI {
 	public static void set_map(JFrame frame) {
 		map_label.setHorizontalAlignment(SwingConstants.CENTER);
 		map_label.setIcon(today.map);
-		map_label.setBounds(7, 6, 209, 187); // IMAGE PLACEMENT
+		//map_label.setBounds(7, 6, 209, 187); // IMAGE PLACEMENT
+		map_label.setBounds(7, 6, 256, 210); // IMAGE PLACEMENT
 		frame.getContentPane().add(map_label);
 	}
+
+	/**************** WEATHER MAP ******************/
+	public static void set_weather_map(JFrame frame) {
+		weather_map_label.setHorizontalAlignment(SwingConstants.CENTER);
+		weather_map_label.setIcon(today.weather_map);
+		//weather_map_label.setBounds(7, 6, 209, 187); // IMAGE PLACEMENT
+		weather_map_label.setBounds(7, 6, 256, 210);
+		frame.getContentPane().add(weather_map_label);
+	}
+
+	/**************** Composte MAP ******************/
+	public static void set_composite_map(JFrame frame) {
+		composite_map_label.setHorizontalAlignment(SwingConstants.CENTER);
+		composite_map_label.setIcon(today.composite);
+		composite_map_label.setBounds(7, 6, 209, 187); // IMAGE PLACEMENT
+		frame.getContentPane().add(composite_map_label);
+	}
+
+	
 
 	/**************** BUTTON ACTION ******************/
 	public void search_button_action(String input, JFrame frame) {
@@ -297,7 +321,10 @@ public class UI {
 			today = new Today(input);
 			get_forecast();
 			set_icon(frame);
+			set_weather_map(frame);
 			set_map(frame);
+			//set_composite_map(frame);
+			
 			set_Background_Image(frame);
 			fahreneitButton.setVisible(true);
 			celciusButton.setVisible(true);
@@ -307,7 +334,7 @@ public class UI {
 		}
 		if (fahreneitButton.isSelected()) {
 			tempLabel.setText("" + today.get_temp() + "°F");
-			for(int i=0; i<8; i++){
+			for(int i=0; i<7; i++){
 				forecast_day_labels[i].setText(forecast[i].get_day_of_week());
 				forecast_min_labels[i].setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
 				forecast_max_labels[i].setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
@@ -316,7 +343,7 @@ public class UI {
 			} 
 		} else {
 			tempLabel.setText("" + (int) today.get_CelsiusTemp() + "°C");
-			for(int i=0; i<8; i++){
+			for(int i=0; i<7; i++){
 				forecast_day_labels[i].setText(forecast[i].get_day_of_week());
 				forecast_min_labels[i].setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
 				forecast_max_labels[i].setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
@@ -333,7 +360,7 @@ public class UI {
 	}
 
 	public static void get_forecast() {
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 7; i++) {
 			try {
 				forecast[i] = new Forecast(today.json, i);
 			} catch (IOException e) {
