@@ -184,7 +184,7 @@ public class UI {
 					fahreneitButton.setSelected(false);
 					//unit = false;
 					tempLabel.setText("" + (int) today.get_CelsiusTemp() + "°C");
-					for(int i=0; i<8; i++){
+					for(int i=0; i<7; i++){
 						forecast_min_labels[i].setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
 						forecast_max_labels[i].setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
 					}
@@ -200,7 +200,7 @@ public class UI {
 					celciusButton.setSelected(false);
 					//unit = true;
 					tempLabel.setText("" + today.get_temp() + "°F");
-					for(int i=0; i<8; i++){
+					for(int i=0; i<7; i++){
 						forecast_min_labels[i].setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
 						forecast_max_labels[i].setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
 					}
@@ -307,7 +307,7 @@ public class UI {
 		}
 		if (fahreneitButton.isSelected()) {
 			tempLabel.setText("" + today.get_temp() + "°F");
-			for(int i=0; i<8; i++){
+			for(int i=0; i<7; i++){
 				forecast_day_labels[i].setText(forecast[i].get_day_of_week());
 				forecast_min_labels[i].setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
 				forecast_max_labels[i].setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
@@ -316,7 +316,7 @@ public class UI {
 			} 
 		} else {
 			tempLabel.setText("" + (int) today.get_CelsiusTemp() + "°C");
-			for(int i=0; i<8; i++){
+			for(int i=0; i<7; i++){
 				forecast_day_labels[i].setText(forecast[i].get_day_of_week());
 				forecast_min_labels[i].setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
 				forecast_max_labels[i].setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
