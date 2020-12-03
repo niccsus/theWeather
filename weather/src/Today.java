@@ -21,6 +21,7 @@ public class Today {
 
 
     public Today(String user_input) throws IOException {
+        user_input=user_input.replaceAll(" ","+");
         this.json = set_json(user_input);
         this.current = this.json.getJSONObject("current");
         this.feel = current.getInt("feels_like");   //get feels like temp from json
