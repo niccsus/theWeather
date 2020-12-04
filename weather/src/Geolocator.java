@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Geolocator implements Tiles{
+public class Geolocator{
     double lat;
     double lon;
     static int x;
@@ -39,30 +39,34 @@ public class Geolocator implements Tiles{
     }
 
     public static void getTileNumber(final double lon, final double lat, final int zoom) {
-        int xtile = (int) Math.floor((lon + 180) / 360 * (1 << zoom));
-        int ytile = (int) Math
-                .floor((1 - Math.log(Math.tan(Math.toRadians(lat)) + 1 / Math.cos(Math.toRadians(lat))) / Math.PI) / 2
-                        * (1 << zoom));
-        if (xtile < 0)
-            xtile = 0;
-        if (xtile >= (1 << zoom))
-            xtile = ((1 << zoom) - 1);
-        if (ytile < 0)
-            ytile = 0;
-        if (ytile >= (1 << zoom))
-            ytile = ((1 << zoom) - 1);
-        x = xtile;
-        y = ytile;
-        //System.out.println(lon + "        " + lat);
-        //System.out.println("Zoom: " + zoom + " xtile: " + x + " ytile: " + y);
+        // n = 2 ^ zoom
+        // xtile = n * ((lon_deg + 180) / 360)
+        // ytile = n * (1 - (log(tan(lat_rad) + sec(lat_rad)) / π)) / 2
+
+        double  n = Math.pow(2,zoom);
+        double xtile = n * ((lat+180)/360);
+        double ytile = n * (1-(Math.log(Math.tan(Math.toRadians(lon)))+(1/Math.cos(Math.toRadians(lon))))/Math.PI)/2;
+
+        // int xtile = (int) Math.floor((lon + 180) / 360 * (1 << zoom));
+        // int ytile = (int) Math
+        //         .floor((1 - Math.log(Math.tan(Math.toRadians(lat)) + 1 / Math.cos(Math.toRadians(lat))) / Math.PI) / 2
+        //                 * (1 << zoom));
+        // if (xtile < 0)
+        //     xtile = 0;
+        // if (xtile >= (1 << zoom))
+        //     xtile = ((1 << zoom) - 1);
+        // if (ytile < 0)
+        //     ytile = 0;
+        // if (ytile >= (1 << zoom))
+        //     ytile = ((1 << zoom) - 1);
+        x = (int)xtile;
+        y = (int)ytile;
+        System.out.println(lon + "        " + lat);
+        System.out.println("Zoom: " + zoom + " xtile: " + x + " ytile: " + y);
     }
     // public void getTileNumber(final double lat, final double lon, final int zoom) {
 
-    @Override
-    public void get_tiles() {
-        System.out.println("This is being printed by an interface method.");
-
-    }
+ 
         
     //     int xtile = (int)Math.floor( (lon + 180) / 360 * (1<<zoom) ) ;
     //     int ytile = (int)Math.floor( (1 - Math.log(Math.tan(Math.toRadians(lat)) + 1 / Math.cos(Math.toRadians(lat))) / Math.PI) / 2 * (1<<zoom) ) ;

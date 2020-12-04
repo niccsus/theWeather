@@ -9,7 +9,7 @@ import java.util.*;
 import java.text.*;
 
 //Class for going through json files and returning specific data points
-public class Today{
+public class Today implements Weather_Data{
     JSONObject json = new JSONObject();
     private JSONObject current = new JSONObject();
     private int feel,temp,humidity,pressure,cloud_percent,wind_speed,wind_deg,dt,time,zoom;

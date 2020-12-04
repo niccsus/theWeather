@@ -30,7 +30,7 @@ public class UI {
 	static JLabel[] forecast_icon_labels = new JLabel[8];
 	String[] map_boxOptions = { "Clouds", "Precipitation", "Pressure", "Temp", "Wind" };
 	JComboBox<String> map_comboBox = new JComboBox<>(map_boxOptions);
-	static int zoom = 6;
+	static int zoom = 8;
 	static String view = "clouds_new";
 	static String img = "";
 	Color text_color = Color.WHITE;
@@ -266,7 +266,7 @@ public class UI {
 		/**************** ZOOM OUT ACTION LISTENER *****************/
 		zoom_out_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(zoom>6){
+				if(zoom>8){
 					zoom--;
 					try {
 						today.fetch.set_map(zoom, view);

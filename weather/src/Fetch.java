@@ -45,12 +45,8 @@ public class Fetch {
         if (instance == null) {
             instance = new Fetch();
         }
-        view = view;
-        zoom = zoom;
         google_query = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "&key=" + google_key;
         geolocator = new Geolocator(google_query, zoom);
-        geolocator.get_tiles();
-        System.out.println(geolocator.test); // TESTING INTERFACES
         query = "https://api.openweathermap.org/data/2.5/onecall?lat=" + geolocator.lat + "&lon=" + geolocator.lon
                 + "&units=imperial&appid=" + key;
         set_json(query);

@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Forecast {
+public class Forecast implements Weather_Data{
     private JSONObject json;
     private JSONArray daily;    
     private double temp_day,temp_night,feel_day,feel_night,windspeed,temp_min,temp_max,temp_eve,temp_morn,feel_eve,feel_morn;
@@ -26,7 +26,7 @@ public class Forecast {
     JLabel temp_max_label = new JLabel("");
 
     public Forecast(){
-        
+
     }
  
     public Forecast(JSONObject json, int day) throws IOException{
@@ -135,11 +135,11 @@ public class Forecast {
         return feel_night;
     }
 
-    public double getWindspeed() {
-        return windspeed;
+    public int get_wind_speed() {
+        return (int) windspeed;
     }
 
-    public int getCloudPercentage() {
+    public int get_cloud_percent() {
         return cloudPercentage;
     }
 
@@ -175,7 +175,7 @@ public class Forecast {
         return feel_morn;
     }
 
-    public int get_humid(){
+    public int get_humidity(){
         return humid;
     }
 
