@@ -33,6 +33,9 @@ public class UI {
 	Color text_color = Color.WHITE;
 	JButton zoom_in_button = new JButton();
 	JButton zoom_out_button = new JButton();
+	String[] boxOptions = { "Sacramento", "San Franisco", "Los Angeles", "San Diego", "New York" };
+	JComboBox<String> comboBox = new JComboBox<>(boxOptions);
+	JButton saveCity = new JButton("Favorite");
 
 	public static void frame() throws IOException {
 		EventQueue.invokeLater(new Runnable() {
@@ -147,9 +150,9 @@ public class UI {
 		frame.getContentPane().add(cloudLabel);
 
 		/************** COMBO BOX ***************************/
-		String[] boxOptions = { "Sacramento", "San Franisco", "Los Angeles", "San Diego", "New York" };
-		JComboBox<String> comboBox = new JComboBox<>(boxOptions);
+		
 		comboBox.setBounds(650, 6, 152, 27);
+		comboBox.setVisible(false);
 		frame.getContentPane().add(comboBox);// allows the saved cities to be acessed faster
 		
 
@@ -197,7 +200,7 @@ public class UI {
 		 */
 
 		/************* FAVORITE CITY BUTTON************************* */
-		JButton saveCity = new JButton("Favorite");
+		saveCity.setVisible(false);
 		saveCity.setBounds(515, 371, 102, 23);
 		frame.getContentPane().add(saveCity);
 
@@ -230,7 +233,6 @@ public class UI {
 				try {
 					Fetch.set_map(zoom, result);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				view = result;
@@ -243,7 +245,7 @@ public class UI {
 		/**************** ZOOM IN ACTION LISTENER *****************/
 		zoom_in_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(zoom<21){
+				if(zoom<10){
 						zoom++;
 					try {
 						Fetch.set_map(zoom, view);
@@ -254,7 +256,6 @@ public class UI {
 					set_weather_map(frame);
 					set_map(frame);
 					set_Background_Image(frame);
-					System.out.println(zoom);
 				}
 				
 			}
@@ -274,7 +275,6 @@ public class UI {
 					set_weather_map(frame);
 					set_map(frame);
 					set_Background_Image(frame);
-					System.out.println(zoom);
 				}
 			}
 		});
@@ -311,7 +311,6 @@ public class UI {
 			}
 		});
 		
-		//initial_set_background_image(frame);
 
 		/**************** TEXTFIELD (PRESS ENTER) ACTION LISTENER ******************/
 		textField.addKeyListener(new KeyAdapter() {
@@ -336,12 +335,7 @@ public class UI {
 			}
 		});
 		initial_set_background_image(frame);
-		// today = new Today("Roseville");
-		// get_forecast();
 		set_forecast_days(frame);
-		// set_icon(frame);
-		// set_map(frame);
-		// set_Background_Image(frame);
 
 	}
 
@@ -358,7 +352,6 @@ public class UI {
 	public static void set_Background_Image(JFrame frame) {
 		lblNewLabel.setText("");
 		String cl = today.get_icon_id();
-		//System.out.println(cl);
 		if (cl.equals("02d") || cl.equals("02n") || cl.equals("03d") || cl.equals("03n") || cl.equals("04d")
 				|| cl.equals("04n")) {
 			img = "cloud.jpg";
@@ -420,15 +413,14 @@ public class UI {
 	/**************** BUTTON ACTION ******************/
 	public void search_button_action(String input, JFrame frame) {
 		try {
-			//today = new Today(input, view, zoom);
 			today = new Today_Roseville(input, view, zoom);
 			get_forecast();
 			set_icon(frame);
 			set_weather_map(frame);
 			set_map(frame);
 			map_comboBox.setVisible(true);
-			//set_composite_map(frame);
-			
+			//comboBox.setVisible(true);	//SET TO VISIBLE UPON "SAVED CITY" FEATURE COMPLETION
+			//saveCity.setVisible(false);	////SET TO VISIBLE UPON "SAVED CITY" FEATURE COMPLETION
 			set_Background_Image(frame);
 			fahreneitButton.setVisible(true);
 			celciusButton.setVisible(true);
@@ -445,7 +437,6 @@ public class UI {
 				forecast_min_labels[i].setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
 				forecast_max_labels[i].setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
 				forecast_icon_labels[i].setIcon(forecast[i].get_icon());
-				//System.out.println("TEST 1");
 			} 
 		} else {
 			tempLabel.setText("" + (int) today.get_CelsiusTemp() + "°C");
@@ -454,7 +445,6 @@ public class UI {
 				forecast_min_labels[i].setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
 				forecast_max_labels[i].setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
 				forecast_icon_labels[i].setIcon(forecast[i].get_icon());
-				//System.out.println("TEST 2");
 			}
 		}
 		

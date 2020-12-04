@@ -97,7 +97,6 @@ public class Fetch {
     }
 
     public static void set_map(int zoom, String view) throws IOException {
-        //System.out.println(zoom + view);
         static_map_query = "https://maps.googleapis.com/maps/api/staticmap?center=" + geolocator.lat + ","
                 + geolocator.lon + "&zoom=" + zoom + "&size=256x256&maptype=hybrid&key=" + google_key;
         URL url = new URL(static_map_query);

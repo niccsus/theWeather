@@ -66,11 +66,7 @@ public class Forecast implements Weather_Data{
         this.sunset = unix_timestamp_convertor(sunset_dt);      //set sunset date/time
         day_of_week_calculator();
         this.week_day_label = new JLabel(this.day_of_week);
-        //this.temp_min_label = new JLabel("");//new JLabel("Min: " + this.temp_min);
-        //this.temp_max_label = new JLabel("");//new JLabel("Max: " + this.temp_max);
         
-
-
     }
 
     //decode unix timestamp into time format based on search location's timezone
@@ -114,7 +110,6 @@ public class Forecast implements Weather_Data{
             default: this.day_of_week = "INVALID";
             break;
         }
-        //System.out.println(this.day_of_week);
     }
 
     public double getTemp_day() {

@@ -52,8 +52,6 @@ public class Geolocator{
             ytile = ((1 << zoom) - 1);
         x = (int)xtile;
         y = (int)ytile;
-        System.out.println(lon + "        " + lat);
-        System.out.println("Zoom: " + zoom + " xtile: " + x + " ytile: " + y);
     }
     
 
