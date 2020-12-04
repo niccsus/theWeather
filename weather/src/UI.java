@@ -10,7 +10,8 @@ public class UI {
 	static JLabel tempLabel;
 	static JLabel humidLabel;
 	static JLabel cloudLabel;
-    private static Today today;
+	//private static Today today;
+	private static Today_Roseville today;
     private JFrame frame;
 	private JTextField textField;
 	private JRadioButton celciusButton;
@@ -27,12 +28,16 @@ public class UI {
 	static JLabel[] forecast_min_labels = new JLabel[8];
 	static JLabel[] forecast_max_labels = new JLabel[8];
 	static JLabel[] forecast_icon_labels = new JLabel[8];
-
+	String[] map_boxOptions = { "Clouds", "Precipitation", "Pressure", "Temp", "Wind" };
+	JComboBox<String> map_comboBox = new JComboBox<>(map_boxOptions);
+	static int zoom = 6;
+	static String view = "clouds_new";
 	static String img = "";
 	Color text_color = Color.WHITE;
+	JButton zoom_in_button = new JButton();
+	JButton zoom_out_button = new JButton();
 
 	public static void frame() throws IOException {
-
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -86,6 +91,22 @@ public class UI {
 		frame.getContentPane().add(celciusButton); // ADDS RADIO BUTTON
 		celciusButton.setVisible(false);
 
+		/************** MAP ZOOM IN BUTTON ******************/
+		ImageIcon zoom_in_icon = new ImageIcon("weather/picture/Zoom_in.png");
+		zoom_in_button.setFont(new Font("Sans Serif", Font.BOLD, 10));
+		zoom_in_button.setBounds(235, 6, 25, 25);
+		zoom_in_button.setIcon(resizeIcon(zoom_in_icon, zoom_in_button.getWidth(), zoom_in_button.getHeight()));
+		frame.getContentPane().add(zoom_in_button);
+		zoom_in_button.setVisible(false);
+
+		/************** MAP ZOOM OUT BUTTON ******************/
+		ImageIcon zoom_out_icon = new ImageIcon("weather/picture/Zoom_out.png");
+		zoom_out_button.setFont(new Font("Sans Serif", Font.BOLD, 10));
+		zoom_out_button.setBounds(235, 33, 25, 25);
+		zoom_out_button.setIcon(resizeIcon(zoom_out_icon, zoom_out_button.getWidth(), zoom_out_button.getHeight()));
+		frame.getContentPane().add(zoom_out_button);
+		zoom_out_button.setVisible(false);
+
 		/*************** FAHRENHEIT RADIO BUTTON ***************/
 		fahreneitButton = new JRadioButton("Fahrenheit ");
 		fahreneitButton.setSelected(true);
@@ -134,6 +155,13 @@ public class UI {
 		comboBox.setBounds(650, 6, 152, 27);
 		frame.getContentPane().add(comboBox);// allows the saved cities to be acessed faster
 		
+
+		/************** Map COMBO BOX ***************************/
+		map_comboBox.setBounds(10, 6, 80, 20);
+		map_comboBox.setVisible(false);
+		frame.getContentPane().add(map_comboBox);
+
+
 		/***
 		 * WEATHER INFO
 		 */
@@ -176,6 +204,83 @@ public class UI {
 		saveCity.setBounds(515, 371, 102, 23);
 		frame.getContentPane().add(saveCity);
 
+		/**************** MAP_COMBOBOX ACTION LISTENER *****************/
+		map_comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String s = (String) map_comboBox.getSelectedItem();
+				String result = "";
+				switch(s){
+					case "Clouds": 
+						result = "clouds_new";
+						break;
+					case "Precipitation":
+						result = "precipitation_new";
+						break;
+					case "Pressure":
+						result = "pressure_new";
+						break;
+					case "Temp":
+						result = "temp_new";
+						break;
+					case "Wind":
+						result = "wind_new";
+						break;
+					default:
+						result = "clouds_new";
+						break;
+				}
+				
+				try {
+					today.fetch.set_map(zoom, result);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				view = result;
+				set_weather_map(frame);
+				set_map(frame);
+				set_Background_Image(frame);
+			}
+		});
+
+		/**************** ZOOM IN ACTION LISTENER *****************/
+		zoom_in_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(zoom<21){
+						zoom++;
+					try {
+						today.fetch.set_map(zoom, view);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					set_weather_map(frame);
+					set_map(frame);
+					set_Background_Image(frame);
+					System.out.println(zoom);
+				}
+				
+			}
+		});
+
+		/**************** ZOOM OUT ACTION LISTENER *****************/
+		zoom_out_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(zoom>6){
+					zoom--;
+					try {
+						today.fetch.set_map(zoom, view);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					set_weather_map(frame);
+					set_map(frame);
+					set_Background_Image(frame);
+					System.out.println(zoom);
+				}
+			}
+		});
 
 		/**************** CELSIUS ACTION LISTENER *****************/
 		celciusButton.addActionListener(new ActionListener() {
@@ -290,7 +395,7 @@ public class UI {
 	/**************** STATIC MAP ******************/
 	public static void set_map(JFrame frame) {
 		map_label.setHorizontalAlignment(SwingConstants.CENTER);
-		map_label.setIcon(today.map);
+		map_label.setIcon(today.get_map());
 		//map_label.setBounds(7, 6, 209, 187); // IMAGE PLACEMENT
 		map_label.setBounds(7, 6, 256, 210); // IMAGE PLACEMENT
 		frame.getContentPane().add(map_label);
@@ -299,7 +404,7 @@ public class UI {
 	/**************** WEATHER MAP ******************/
 	public static void set_weather_map(JFrame frame) {
 		weather_map_label.setHorizontalAlignment(SwingConstants.CENTER);
-		weather_map_label.setIcon(today.weather_map);
+		weather_map_label.setIcon(today.get_weather_map());
 		//weather_map_label.setBounds(7, 6, 209, 187); // IMAGE PLACEMENT
 		weather_map_label.setBounds(7, 6, 256, 210);
 		frame.getContentPane().add(weather_map_label);
@@ -318,16 +423,20 @@ public class UI {
 	/**************** BUTTON ACTION ******************/
 	public void search_button_action(String input, JFrame frame) {
 		try {
-			today = new Today(input);
+			//today = new Today(input, view, zoom);
+			today = new Today_Roseville(input, view, zoom);
 			get_forecast();
 			set_icon(frame);
 			set_weather_map(frame);
 			set_map(frame);
+			map_comboBox.setVisible(true);
 			//set_composite_map(frame);
 			
 			set_Background_Image(frame);
 			fahreneitButton.setVisible(true);
 			celciusButton.setVisible(true);
+			zoom_in_button.setVisible(true);
+			zoom_out_button.setVisible(true);
 		} catch (IOException e1) {
 
 			e1.printStackTrace();
@@ -400,5 +509,11 @@ public class UI {
 
 	public double get_CelsiusTemp(double tem){
         return (tem-32)*0.5556;
-    }
+	}
+	
+	private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
+		Image img = icon.getImage();  
+		Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
+		return new ImageIcon(resizedImage);
+	}
 }

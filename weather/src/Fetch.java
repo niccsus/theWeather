@@ -31,28 +31,21 @@ public class Fetch {
     Geolocator geolocator;
     ImageIcon weather_map = new ImageIcon();
     ImageIcon composite = new ImageIcon();
-    final private int zoom = 6;
+    private int zoom = 6;
+    String view = "";
 
     // constructor in case user inputs string
-    public Fetch(String city) throws IOException {
+    public Fetch(String city, String view, int zoom) throws IOException {
+        this.view = view;
+        this.zoom = zoom;
         this.google_query = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "&key=" + google_key;
         geolocator = new Geolocator(google_query, zoom);
+        geolocator.get_tiles();
+        System.out.println(geolocator.test);    //TESTING INTERFACES
         this.query = "https://api.openweathermap.org/data/2.5/onecall?lat=" + geolocator.lat + "&lon=" + geolocator.lon
                 + "&units=imperial&appid=" + key;
         set_json(query);
-        static_map_query = "https://maps.googleapis.com/maps/api/staticmap?center=" + geolocator.lat + ","
-                + geolocator.lon + "&zoom="+zoom+"&size=256x256&maptype=satellite&key=" + google_key;
-        URL url = new URL(static_map_query);
-        BufferedImage img = ImageIO.read(url);
-        map = new ImageIcon(img);
-
-        weather_map_query = "https://tile.openweathermap.org/map/clouds_new/"+zoom+"/" + geolocator.x + "/" + geolocator.y
-                + ".png?appid=" + key;
-        System.out.println(weather_map_query);
-        System.out.println(static_map_query);
-        URL url2 = new URL(weather_map_query);
-        BufferedImage img2 = ImageIO.read(url2);
-        weather_map = new ImageIcon(get_weather_map_img(img2));
+        set_map(zoom, view);
     }
 
     // creates JSON object based on user input
@@ -97,5 +90,22 @@ public class Fetch {
 
         // Finally, convert to ImageIcon and apply.
         composite = new ImageIcon(finalIcon);
+    }
+
+    public void set_map(int zoom, String view) throws IOException {
+        this.zoom = zoom;
+        this.view = view;
+        System.out.println(zoom + view);
+        static_map_query = "https://maps.googleapis.com/maps/api/staticmap?center=" + geolocator.lat + ","
+                + geolocator.lon + "&zoom="+zoom+"&size=256x256&maptype=hybrid&key=" + google_key;
+        URL url = new URL(static_map_query);
+        BufferedImage img = ImageIO.read(url);
+        map = new ImageIcon(img);
+
+        weather_map_query = "https://tile.openweathermap.org/map/" + view + "/" + zoom + "/" + geolocator.x + "/" + geolocator.y
+                + ".png?appid=" + key;
+        URL url2 = new URL(weather_map_query);
+        BufferedImage img2 = ImageIO.read(url2);
+        weather_map = new ImageIcon(get_weather_map_img(img2));
     }
 }

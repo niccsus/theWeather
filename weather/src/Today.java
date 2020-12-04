@@ -9,21 +9,24 @@ import java.util.*;
 import java.text.*;
 
 //Class for going through json files and returning specific data points
-public class Today {
+public class Today{
     JSONObject json = new JSONObject();
     private JSONObject current = new JSONObject();
-    private int feel,temp,humidity,pressure,cloud_percent,wind_speed,wind_deg,dt,time;
-    private String cloud,timezone,date,icon_id;
+    private int feel,temp,humidity,pressure,cloud_percent,wind_speed,wind_deg,dt,time,zoom;
+    private String cloud,timezone,date,icon_id,view;
     ImageIcon map = new ImageIcon();
     private String icon_url = "";
     ImageIcon icon = new ImageIcon();
     ImageIcon weather_map = new ImageIcon();
     ImageIcon composite = new ImageIcon();
+    Fetch fetch;
     
 
 
-    public Today(String user_input) throws IOException {
+    public Today(String user_input, String view, int zoom) throws IOException {
         user_input=user_input.replaceAll(" ","+");
+        this.view = view;
+        this.zoom = zoom;
         this.json = set_json(user_input);
         this.current = this.json.getJSONObject("current");
         this.feel = current.getInt("feels_like");   //get feels like temp from json
@@ -53,7 +56,7 @@ public class Today {
     //calls Fetch to get json file
     //returns json to constructor
     private JSONObject set_json(String user_input) throws IOException{
-        Fetch fetch = new Fetch(user_input);
+        fetch = new Fetch(user_input, view, zoom);
         this.map = fetch.map;
         this.weather_map = fetch.weather_map;
         this.composite = fetch.composite;
@@ -152,5 +155,17 @@ public class Today {
     public String get_icon_id(){
         return icon_id;
     }
+
+    public ImageIcon get_map(){
+        this.map = fetch.map;
+        return map;
+    }
+
+    public ImageIcon get_weather_map(){
+        this.weather_map = fetch.weather_map;
+        return weather_map;
+    }
+
+   
 
 }
