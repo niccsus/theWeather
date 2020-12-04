@@ -53,8 +53,8 @@ public class Geolocator implements Tiles{
             ytile = ((1 << zoom) - 1);
         x = xtile;
         y = ytile;
-        System.out.println(lon + "        " + lat);
-        System.out.println("Zoom: " + zoom + " xtile: " + x + " ytile: " + y);
+        //System.out.println(lon + "        " + lat);
+        //System.out.println("Zoom: " + zoom + " xtile: " + x + " ytile: " + y);
     }
     // public void getTileNumber(final double lat, final double lon, final int zoom) {
 

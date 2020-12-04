@@ -56,13 +56,15 @@ public class Today{
     //calls Fetch to get json file
     //returns json to constructor
     private JSONObject set_json(String user_input) throws IOException{
-        fetch = new Fetch(user_input, view, zoom);
+        fetch = Fetch.getInstance(user_input, view, zoom);
         this.map = fetch.map;
         this.weather_map = fetch.weather_map;
         this.composite = fetch.composite;
         return fetch.json;
     }
-    //decode unix timestamp into time format based on search location's timezone
+
+
+	//decode unix timestamp into time format based on search location's timezone
     private void unix_timestamp_convertor(){
         //Unix seconds
         long unix_seconds = dt;
