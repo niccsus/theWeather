@@ -5,6 +5,6 @@
     //Make sure the path on your machine is correct
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\JP\\Downloads\\json-20201115.jar"
+        "weather/json-20201115.jar"
     ]
 }
