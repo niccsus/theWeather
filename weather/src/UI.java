@@ -1,8 +1,7 @@
 import javax.swing.*;  
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import javax.swing.plaf.basic.BasicTextFieldUI;  
+import java.io.IOException; 
 
 public class UI {
 
@@ -10,14 +9,12 @@ public class UI {
 	static JLabel tempLabel;
 	static JLabel humidLabel;
 	static JLabel cloudLabel;
-	//private static Today today;
 	private static Today_Roseville today;
     private JFrame frame;
 	private JTextField textField;
 	private JRadioButton celciusButton;
 	private JRadioButton fahreneitButton;
 	static JLabel celsius;
-	//static boolean unit;	//if true, requests F
 	static JLabel lblNewLabel = new JLabel(""); 
 	static JLabel map_label = new JLabel("");
 	static JLabel weather_map_label = new JLabel("");
@@ -231,7 +228,7 @@ public class UI {
 				}
 				
 				try {
-					today.fetch.set_map(zoom, result);
+					Fetch.set_map(zoom, result);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -249,7 +246,7 @@ public class UI {
 				if(zoom<21){
 						zoom++;
 					try {
-						today.fetch.set_map(zoom, view);
+						Fetch.set_map(zoom, view);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -266,10 +263,10 @@ public class UI {
 		/**************** ZOOM OUT ACTION LISTENER *****************/
 		zoom_out_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(zoom>8){
+				if(zoom>0){
 					zoom--;
 					try {
-						today.fetch.set_map(zoom, view);
+						Fetch.set_map(zoom, view);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

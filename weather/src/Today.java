@@ -57,10 +57,10 @@ public class Today implements Weather_Data{
     //returns json to constructor
     private JSONObject set_json(String user_input) throws IOException{
         fetch = Fetch.getInstance(user_input, view, zoom);
-        this.map = fetch.map;
-        this.weather_map = fetch.weather_map;
+        this.map = Fetch.map;
+        this.weather_map = Fetch.weather_map;
         this.composite = fetch.composite;
-        return fetch.json;
+        return Fetch.json;
     }
 
 
@@ -159,12 +159,12 @@ public class Today implements Weather_Data{
     }
 
     public ImageIcon get_map(){
-        this.map = fetch.map;
+        this.map = Fetch.map;
         return map;
     }
 
     public ImageIcon get_weather_map(){
-        this.weather_map = fetch.weather_map;
+        this.weather_map = Fetch.weather_map;
         return weather_map;
     }
 

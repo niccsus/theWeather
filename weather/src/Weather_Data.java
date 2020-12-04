@@ -1,5 +1,4 @@
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 interface Weather_Data {
     public int get_wind_speed();

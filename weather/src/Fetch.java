@@ -5,13 +5,11 @@ import java.net.http.HttpResponse;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
@@ -37,7 +35,6 @@ public class Fetch {
     static Geolocator geolocator;
     static ImageIcon weather_map = new ImageIcon();
     ImageIcon composite = new ImageIcon();
-    private int zoom = 6;
     String view = "";
 
     // constructor in case user inputs string
@@ -100,8 +97,6 @@ public class Fetch {
     }
 
     public static void set_map(int zoom, String view) throws IOException {
-        zoom = zoom;
-        view = view;
         //System.out.println(zoom + view);
         static_map_query = "https://maps.googleapis.com/maps/api/staticmap?center=" + geolocator.lat + ","
                 + geolocator.lon + "&zoom=" + zoom + "&size=256x256&maptype=hybrid&key=" + google_key;
@@ -109,8 +104,9 @@ public class Fetch {
         BufferedImage img = ImageIO.read(url);
         map = new ImageIcon(img);
 
-        weather_map_query = "https://tile.openweathermap.org/map/" + view + "/" + zoom + "/" + geolocator.x + "/"
-                + geolocator.y + ".png?appid=" + key;
+        Geolocator.getTileNumber(geolocator.lon, geolocator.lat, zoom);
+        weather_map_query = "https://tile.openweathermap.org/map/" + view + "/" + zoom + "/" + Geolocator.x + "/"
+                + Geolocator.y + ".png?appid=" + key;
         URL url2 = new URL(weather_map_query);
         BufferedImage img2 = ImageIO.read(url2);
         weather_map = new ImageIcon(get_weather_map_img(img2));

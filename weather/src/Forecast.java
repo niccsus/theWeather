@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Forecast implements Weather_Data{
-    private JSONObject json;
     private JSONArray daily;    
     private double temp_day,temp_night,feel_day,feel_night,windspeed,temp_min,temp_max,temp_eve,temp_morn,feel_eve,feel_morn;
     private int sunrise_dt,sunset_dt,cloudPercentage,humid,pressure,dt;
@@ -30,7 +29,6 @@ public class Forecast implements Weather_Data{
     }
  
     public Forecast(JSONObject json, int day) throws IOException{
-        this.json = json;
         this.daily = (JSONArray) json.get("daily");
         JSONObject currentObj = (JSONObject) daily.get(day);
 
