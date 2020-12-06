@@ -1,7 +1,14 @@
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.*;  
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException; 
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+
 
 public class UI {
 
@@ -33,9 +40,12 @@ public class UI {
 	Color text_color = Color.WHITE;
 	JButton zoom_in_button = new JButton();
 	JButton zoom_out_button = new JButton();
-	String[] boxOptions = { "Sacramento", "San Franisco", "Los Angeles", "San Diego", "New York" };
+	BufferedReader br = new BufferedReader(new FileReader("/Users/harpreetpadda/Desktop/theWeather/weather/src/favoriteCity.txt"));
+	//BufferedWriter wr = new BufferedWriter(new FileWriter("theWeatherfavoriteCity.txt"));
+	String [] boxOptions = {};
 	JComboBox<String> comboBox = new JComboBox<>(boxOptions);
 	JButton saveCity = new JButton("Favorite");
+	JButton deleteCity = new JButton("Delete City");
 
 	public static void frame() throws IOException {
 		EventQueue.invokeLater(new Runnable() {
@@ -150,9 +160,18 @@ public class UI {
 		frame.getContentPane().add(cloudLabel);
 
 		/************** COMBO BOX ***************************/
-		
 		comboBox.setBounds(650, 6, 152, 27);
-		comboBox.setVisible(false);
+		comboBox.setVisible(true);
+		comboBox.setEditable(true);
+		try {
+    		String line;
+    		while ((line = br.readLine()) != null) {
+				comboBox.addItem(line);
+   		 	}
+		} 
+		finally {
+    		br.close();
+		}
 		frame.getContentPane().add(comboBox);// allows the saved cities to be acessed faster
 		
 
@@ -200,9 +219,14 @@ public class UI {
 		 */
 
 		/************* FAVORITE CITY BUTTON************************* */
-		saveCity.setVisible(false);
+		saveCity.setVisible(true);
 		saveCity.setBounds(515, 371, 102, 23);
 		frame.getContentPane().add(saveCity);
+
+		/************* DELETE CITY BUTTON************************* */
+		deleteCity.setVisible(true);
+		deleteCity.setBounds(615, 371, 102, 23);
+		frame.getContentPane().add(deleteCity);
 
 		/**************** MAP_COMBOBOX ACTION LISTENER *****************/
 		map_comboBox.addActionListener(new ActionListener() {
@@ -250,7 +274,7 @@ public class UI {
 					try {
 						Fetch.set_map(zoom, view);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+						
 						e1.printStackTrace();
 					}
 					set_weather_map(frame);
@@ -269,7 +293,7 @@ public class UI {
 					try {
 						Fetch.set_map(zoom, view);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+						
 						e1.printStackTrace();
 					}
 					set_weather_map(frame);
@@ -334,9 +358,52 @@ public class UI {
 				set_Background_Image(frame);
 			}
 		});
+
+		deleteCity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String input = textField.getText();
+				comboBox.removeItem(input);
+			}
+		});
+
+		saveCity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String input = textField.getText();
+				if(input == null)
+				{
+					return;
+				}
+				else if (input == "")
+				{
+					return;
+				}
+				else if (input.length() < 1)
+				{
+					return;
+				}
+				else 
+				{
+					comboBox.addItem(input);
+				}
+
+			}
+		});
 		initial_set_background_image(frame);
 		set_forecast_days(frame);
+		
 
+
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				JComboBox<?> box = (JComboBox<?>) e.getSource();
+				String savedCity = box.getSelectedItem().toString();
+				search_button_action(savedCity, frame);
+				set_icon(frame);
+				set_map(frame);
+				set_Background_Image(frame);
+			}
+		});
 	}
 
 	/**************** INITIAL BACKGROUND IMAGE ******************/
