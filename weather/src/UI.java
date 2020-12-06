@@ -3,11 +3,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException; 
-import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 
 public class UI {
@@ -41,7 +44,6 @@ public class UI {
 	JButton zoom_in_button = new JButton();
 	JButton zoom_out_button = new JButton();
 	BufferedReader br = new BufferedReader(new FileReader("/Users/harpreetpadda/Desktop/theWeather/weather/src/favoriteCity.txt"));
-	//BufferedWriter wr = new BufferedWriter(new FileWriter("theWeatherfavoriteCity.txt"));
 	String [] boxOptions = {};
 	JComboBox<String> comboBox = new JComboBox<>(boxOptions);
 	JButton saveCity = new JButton("Favorite");
@@ -170,7 +172,7 @@ public class UI {
    		 	}
 		} 
 		finally {
-    		br.close();
+    		//br.close();
 		}
 		frame.getContentPane().add(comboBox);// allows the saved cities to be acessed faster
 		
@@ -359,34 +361,96 @@ public class UI {
 			}
 		});
 
+		/**************** DELETE BUTTON AND ACTION LISTENER ******************/
 		deleteCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String input = textField.getText();
-				comboBox.removeItem(input);
-			}
+				BufferedWriter wr = null;
+				try {
+					String input = textField.getText();
+					if(input == null)
+					{
+						return;
+					}
+					else if (input == "")
+					{
+						return;
+					}
+					else if (input.length() < 1)
+					{
+						return;
+					}
+					else 
+					{
+						String result = fileToString("/Users/harpreetpadda/Desktop/theWeather/weather/src/favoriteCity.txt");
+						result = result.replaceAll(input, "");
+						result = result.replaceAll( System.lineSeparator(), "");
+						wr = new BufferedWriter(new FileWriter("/Users/harpreetpadda/Desktop/theWeather/weather/src/favoriteCity.txt", false));
+						wr.write(result);
+						wr.newLine();
+						wr.close();
+						comboBox.removeItem(input);
+					}
+				}  catch(Exception ioe)
+					{
+						ioe.printStackTrace();
+					}
+				finally
+				{
+					try {
+						if(wr != null)
+						{
+							wr.close();
+						}
+					} catch(Exception ex)
+					{
+						ex.printStackTrace();
+					}
+					}
+				}
 		});
 
+		/**************** FAVORITE BUTTON AND ACTION LISTENER ******************/
 		saveCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String input = textField.getText();
-				if(input == null)
+				BufferedWriter wr = null;
+				try {
+					String input = textField.getText();
+					wr = new BufferedWriter(new FileWriter("/Users/harpreetpadda/Desktop/theWeather/weather/src/favoriteCity.txt", true));
+					if(input == null)
+					{
+						return;
+					}
+					else if (input == "")
+					{
+						return;
+					}
+					else if (input.length() < 1)
+					{
+						return;
+					}
+					else 
+					{
+						wr.write(input);
+						wr.newLine();
+						comboBox.addItem(input);
+					}
+				}  catch(IOException ioe)
+					{
+						ioe.printStackTrace();
+					}
+				finally
 				{
-					return;
+					try {
+						if(wr != null)
+						{
+							wr.close();
+						}
+					} catch(Exception ex)
+					{
+						ex.printStackTrace();
+					}
+					}
 				}
-				else if (input == "")
-				{
-					return;
-				}
-				else if (input.length() < 1)
-				{
-					return;
-				}
-				else 
-				{
-					comboBox.addItem(input);
-				}
-
-			}
 		});
 		initial_set_background_image(frame);
 		set_forecast_days(frame);
@@ -570,4 +634,17 @@ public class UI {
 		Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
 		return new ImageIcon(resizedImage);
 	}
+
+
+	// To delete from file
+	private String fileToString(String filePath) throws Exception{
+		String input = null;
+		Scanner sc = new Scanner(new File(filePath));
+		StringBuffer sb = new StringBuffer();
+		while (sc.hasNextLine()) {
+		   input = sc.nextLine();
+		   sb.append(input);
+		}
+		return sb.toString();
+	 }
 }
