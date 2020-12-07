@@ -1,8 +1,9 @@
-import javax.lang.model.util.ElementScanner14;
-import javax.swing.*;  
+
+//import javax.lang.model.util.ElementScanner14;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException; 
+import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -12,20 +13,19 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-
 public class UI {
 
-    static JTextField text_field;
+	static JTextField text_field;
 	static JLabel tempLabel;
 	static JLabel humidLabel;
 	static JLabel cloudLabel;
 	private static Today_Roseville today;
-    private JFrame frame;
+	private JFrame frame;
 	private JTextField textField;
 	private JRadioButton celciusButton;
 	private JRadioButton fahreneitButton;
 	static JLabel celsius;
-	static JLabel lblNewLabel = new JLabel(""); 
+	static JLabel lblNewLabel = new JLabel("");
 	static JLabel map_label = new JLabel("");
 	static JLabel weather_map_label = new JLabel("");
 	static JLabel composite_map_label = new JLabel("");
@@ -43,8 +43,8 @@ public class UI {
 	Color text_color = Color.WHITE;
 	JButton zoom_in_button = new JButton();
 	JButton zoom_out_button = new JButton();
-	BufferedReader br = new BufferedReader(new FileReader("/Users/harpreetpadda/Desktop/theWeather/weather/src/favoriteCity.txt"));
-	String [] boxOptions = {};
+	BufferedReader br = new BufferedReader(new FileReader("weather/src/favoriteCity.txt"));
+	String[] boxOptions = {};
 	JComboBox<String> comboBox = new JComboBox<>(boxOptions);
 	JButton saveCity = new JButton("Favorite");
 	JButton deleteCity = new JButton("Delete City");
@@ -72,10 +72,10 @@ public class UI {
 	 * @throws IOException
 	 */
 	private void initialize() throws IOException {
-		for(int i=0; i<8; i++){
+		for (int i = 0; i < 8; i++) {
 			forecast[i] = new Forecast();
 		}
-		
+		comboBox.setEditable(false);
 		/*************** WINDOW FRAME ************************/
 		frame = new JFrame();
 		frame.setTitle("The Weather");
@@ -86,7 +86,7 @@ public class UI {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		set_forecast_days(frame);
-		
+
 		/*************** SEARCH BUTTON **********************/
 		JButton button = new JButton("Search");
 		button.setForeground(Color.BLACK);
@@ -122,7 +122,7 @@ public class UI {
 		/*************** FAHRENHEIT RADIO BUTTON ***************/
 		fahreneitButton = new JRadioButton("Fahrenheit ");
 		fahreneitButton.setSelected(true);
-		//unit = true;
+		// unit = true;
 		fahreneitButton.setForeground(new Color(230, 230, 250));
 		fahreneitButton.setOpaque(false);
 		fahreneitButton.setBackground(new Color(0, 0, 0));
@@ -164,24 +164,21 @@ public class UI {
 		/************** COMBO BOX ***************************/
 		comboBox.setBounds(650, 6, 152, 27);
 		comboBox.setVisible(true);
-		comboBox.setEditable(true);
+
 		try {
-    		String line;
-    		while ((line = br.readLine()) != null) {
+			String line;
+			while ((line = br.readLine()) != null) {
 				comboBox.addItem(line);
-   		 	}
-		} 
-		finally {
-    		//br.close();
+			}
+		} finally {
+			// br.close();
 		}
 		frame.getContentPane().add(comboBox);// allows the saved cities to be acessed faster
-		
 
 		/************** Map COMBO BOX ***************************/
 		map_comboBox.setBounds(10, 6, 80, 20);
 		map_comboBox.setVisible(false);
 		frame.getContentPane().add(map_comboBox);
-
 
 		/***
 		 * WEATHER INFO
@@ -235,8 +232,8 @@ public class UI {
 			public void actionPerformed(ActionEvent e) {
 				String s = (String) map_comboBox.getSelectedItem();
 				String result = "";
-				switch(s){
-					case "Clouds": 
+				switch (s) {
+					case "Clouds":
 						result = "clouds_new";
 						break;
 					case "Precipitation":
@@ -255,7 +252,7 @@ public class UI {
 						result = "clouds_new";
 						break;
 				}
-				
+
 				try {
 					Fetch.set_map(zoom, result);
 				} catch (IOException e1) {
@@ -271,31 +268,31 @@ public class UI {
 		/**************** ZOOM IN ACTION LISTENER *****************/
 		zoom_in_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(zoom<10){
-						zoom++;
+				if (zoom < 10) {
+					zoom++;
 					try {
 						Fetch.set_map(zoom, view);
 					} catch (IOException e1) {
-						
+
 						e1.printStackTrace();
 					}
 					set_weather_map(frame);
 					set_map(frame);
 					set_Background_Image(frame);
 				}
-				
+
 			}
 		});
 
 		/**************** ZOOM OUT ACTION LISTENER *****************/
 		zoom_out_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(zoom>0){
+				if (zoom > 0) {
 					zoom--;
 					try {
 						Fetch.set_map(zoom, view);
 					} catch (IOException e1) {
-						
+
 						e1.printStackTrace();
 					}
 					set_weather_map(frame);
@@ -311,11 +308,13 @@ public class UI {
 				celciusButton.setSelected(true);
 				if (celciusButton.isSelected()) {
 					fahreneitButton.setSelected(false);
-					//unit = false;
+					// unit = false;
 					tempLabel.setText("" + (int) today.get_CelsiusTemp() + "°C");
-					for(int i=0; i<7; i++){
-						forecast_min_labels[i].setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
-						forecast_max_labels[i].setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
+					for (int i = 0; i < 7; i++) {
+						forecast_min_labels[i]
+								.setText("Min: " + (int) get_CelsiusTemp(forecast[i].get_temp_min()) + "°C");
+						forecast_max_labels[i]
+								.setText("Max: " + (int) get_CelsiusTemp(forecast[i].get_temp_max()) + "°C");
 					}
 				}
 			}
@@ -327,16 +326,15 @@ public class UI {
 				fahreneitButton.setSelected(true);
 				if (fahreneitButton.isSelected()) {
 					celciusButton.setSelected(false);
-					//unit = true;
+					// unit = true;
 					tempLabel.setText("" + today.get_temp() + "°F");
-					for(int i=0; i<7; i++){
+					for (int i = 0; i < 7; i++) {
 						forecast_min_labels[i].setText("Min: " + (int) forecast[i].get_temp_min() + "°F");
 						forecast_max_labels[i].setText("Max: " + (int) forecast[i].get_temp_max() + "°F");
 					}
 				}
 			}
 		});
-		
 
 		/**************** TEXTFIELD (PRESS ENTER) ACTION LISTENER ******************/
 		textField.addKeyListener(new KeyAdapter() {
@@ -365,59 +363,59 @@ public class UI {
 		deleteCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BufferedWriter wr = null;
+				comboBox.setEditable(true);
 				try {
 					String input = textField.getText();
-					if(input == null)
-					{
+					if (input == null) {
 						return;
-					}
-					else if (input == "")
-					{
+					} else if (input == "") {
 						return;
-					}
-					else if (input.length() < 1)
-					{
+					} else if (input.length() < 1) {
 						return;
-					}
-					else 
-					{
-						String result = fileToString("/Users/harpreetpadda/Desktop/theWeather/weather/src/favoriteCity.txt");
+					} else {
+						String result = fileToString("weather/src/favoriteCity.txt");
 						result = result.replaceAll(input, "");
-						result = result.replaceAll( System.lineSeparator(), "");
-						wr = new BufferedWriter(new FileWriter("/Users/harpreetpadda/Desktop/theWeather/weather/src/favoriteCity.txt", false));
+						result = result.replaceAll(System.lineSeparator(), "");
+						wr = new BufferedWriter(new FileWriter("weather/src/favoriteCity.txt", false));
 						wr.write(result);
 						wr.newLine();
 						wr.close();
 						comboBox.removeItem(input);
 					}
-				}  catch(Exception ioe)
-					{
-						ioe.printStackTrace();
-					}
-				finally
-				{
+				} catch (Exception ioe) {
+					ioe.printStackTrace();
+				} finally {
+					comboBox.setEditable(false);
 					try {
-						if(wr != null)
-						{
+						if (wr != null) {
 							wr.close();
 						}
-					} catch(Exception ex)
-					{
+					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
-					}
 				}
+			}
 		});
 
 		/**************** FAVORITE BUTTON AND ACTION LISTENER ******************/
 		saveCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BufferedWriter wr = null;
+				comboBox.setEditable(true);
+				String result = "";
+				try {
+					result = fileToString("weather/src/favoriteCity.txt");
+				} catch (Exception e1) {
+					//  TODO Auto-gene e1.printStackTrace();
+				}
 				try {
 					String input = textField.getText();
-					wr = new BufferedWriter(new FileWriter("/Users/harpreetpadda/Desktop/theWeather/weather/src/favoriteCity.txt", true));
+					wr = new BufferedWriter(new FileWriter("weather/src/favoriteCity.txt", true));
 					if(input == null)
 					{
+						return;
+					}
+					else if(result.contains(input)){
 						return;
 					}
 					else if (input == "")
@@ -440,6 +438,7 @@ public class UI {
 					}
 				finally
 				{
+					comboBox.setEditable(false);
 					try {
 						if(wr != null)
 						{
