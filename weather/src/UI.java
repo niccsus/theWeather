@@ -87,6 +87,12 @@ public class UI {
 		frame.setResizable(false);
 		set_forecast_days(frame);
 
+		/**Enter City Label** */
+		JLabel enterCity = new JLabel("Enter Location");
+		enterCity.setForeground(Color.WHITE);
+		enterCity.setBounds(166, 330, 118, 16);
+		frame.getContentPane().add(enterCity);
+
 		/*************** SEARCH BUTTON **********************/
 		JButton button = new JButton("Search");
 		button.setForeground(Color.BLACK);
