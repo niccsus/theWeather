@@ -95,7 +95,7 @@ public class Today {
     //return temp in celsius
     public double get_CelsiusTemp(){
         return (temp-32)*0.5556;
-    }
+    } //Added this method, converts temp to celsius
     //return feels like temp
     public int get_feel(){
         return feel;
