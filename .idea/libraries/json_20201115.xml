@@ -3,7 +3,9 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/Downloads/json-20201115.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="https://repo1.maven.org/maven2/org/json/json/20201115/json-20201115.jar" />
+    </JAVADOC>
     <SOURCES />
   </library>
 </component>
