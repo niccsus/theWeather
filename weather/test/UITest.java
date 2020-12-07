@@ -8,8 +8,7 @@ public class UITest {
 
     @Test
     public void forecastCheck() throws IOException {
-        UI jUnit2;
-        jUnit2 = new UI();
+        UI jUnit2 = new UI();
         assertEquals("The weekly forecast has been printed.",jUnit2.forecastCheck());
     }
 
