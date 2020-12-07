@@ -11,12 +11,14 @@ public class Geolocator{
     double lon;
     static int x;
     static int y;
+    static boolean realCity;
     JSONObject google_json = new JSONObject(); // the JSON object that contains city co ordinates
     // ImageIcon map = new ImageIcon();
 
     public Geolocator(String google_query, int zoom) {
 
         set_google_json(google_query);
+        realCity = checkCity();
         set_lat_lon();
         getTileNumber(lon, lat, zoom);
     }
@@ -33,6 +35,14 @@ public class Geolocator{
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(google_query)).build();
         this.google_json = new JSONObject(
                 client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body).join());
+    }
+
+    public boolean checkCity() {
+        String city = "" + google_json.get("status");
+        if (city.contains("OK")) {
+            return true;
+        }
+        else return false;
     }
 
     public static void getTileNumber(final double lon, final double lat, final int zoom) {
