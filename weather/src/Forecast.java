@@ -12,8 +12,7 @@ import javax.swing.JLabel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Forecast {
-    private JSONObject json;
+public class Forecast implements Weather_Data{
     private JSONArray daily;    
     private double temp_day,temp_night,feel_day,feel_night,windspeed,temp_min,temp_max,temp_eve,temp_morn,feel_eve,feel_morn;
     private int sunrise_dt,sunset_dt,cloudPercentage,humid,pressure,dt;
@@ -26,11 +25,10 @@ public class Forecast {
     JLabel temp_max_label = new JLabel("");
 
     public Forecast(){
-        
+
     }
  
     public Forecast(JSONObject json, int day) throws IOException{
-        this.json = json;
         this.daily = (JSONArray) json.get("daily");
         JSONObject currentObj = (JSONObject) daily.get(day);
 
@@ -68,11 +66,7 @@ public class Forecast {
         this.sunset = unix_timestamp_convertor(sunset_dt);      //set sunset date/time
         day_of_week_calculator();
         this.week_day_label = new JLabel(this.day_of_week);
-        //this.temp_min_label = new JLabel("");//new JLabel("Min: " + this.temp_min);
-        //this.temp_max_label = new JLabel("");//new JLabel("Max: " + this.temp_max);
         
-
-
     }
 
     //decode unix timestamp into time format based on search location's timezone
@@ -116,7 +110,6 @@ public class Forecast {
             default: this.day_of_week = "INVALID";
             break;
         }
-        //System.out.println(this.day_of_week);
     }
 
     public double getTemp_day() {
@@ -135,11 +128,11 @@ public class Forecast {
         return feel_night;
     }
 
-    public double getWindspeed() {
-        return windspeed;
+    public int get_wind_speed() {
+        return (int) windspeed;
     }
 
-    public int getCloudPercentage() {
+    public int get_cloud_percent() {
         return cloudPercentage;
     }
 
@@ -175,7 +168,7 @@ public class Forecast {
         return feel_morn;
     }
 
-    public int get_humid(){
+    public int get_humidity(){
         return humid;
     }
 
