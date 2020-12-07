@@ -86,6 +86,12 @@ public class UI {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		set_forecast_days(frame);
+		
+		/*************Enter City Label********* */
+		JLabel enterCity = new JLabel("Enter Location");
+		enterCity.setForeground(Color.WHITE);
+		enterCity.setBounds(166, 330, 118, 16);
+		frame.getContentPane().add(enterCity);
 
 		/*************** SEARCH BUTTON **********************/
 		JButton button = new JButton("Search");
@@ -505,6 +511,7 @@ public class UI {
 	
 	}
 	
+	
 	/**************** ICONS ***********************/
 	public static void set_icon(JFrame frame) {
 		icon.setIcon(today.get_icon());
@@ -537,6 +544,7 @@ public class UI {
 		composite_map_label.setBounds(7, 6, 209, 187); // IMAGE PLACEMENT
 		frame.getContentPane().add(composite_map_label);
 	}
+	
 
 	
 
