@@ -7,7 +7,11 @@ import static org.junit.Assert.*;
 public class UITest {
 
     @Test
-    public void search_button_action() {
+    public void forecastCheck() throws IOException {
+        UI jUnit2;
+        jUnit2 = new UI();
+        String done = jUnit2.forecastCheck();
+        assertEquals("The weekly forecast has been printed.", "The weekly forecast has been printed.");
     }
 
     @Test

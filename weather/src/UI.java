@@ -621,7 +621,10 @@ public class UI {
 
 
 		}
-		
+	}
+
+	public static String forecastCheck() {
+		return "The weekly forecast has been printed.";
 	}
 
 	public double get_CelsiusTemp(double tem){
